@@ -2,13 +2,19 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GET_HOMEPAGE_DATA, LOGIN } from "../../actions/authenticationAction";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import { Spinner } from "react-bootstrap";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import { BASE_URL } from "../../actions/api";
 import { ParallaxProvider } from "react-scroll-parallax";
 import { Parallax } from "react-scroll-parallax";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Header from "./include/Header";
+import Modal from "react-bootstrap/Modal";
+import { Button, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
 
 import {
   Logo,
@@ -40,7 +46,6 @@ import {
   social,
   instagram,
   Team,
-  gmail,
   LogoFooter,
 } from "../../Constants/Images";
 import { useRef } from "react";
@@ -82,6 +87,7 @@ function Login(props) {
 
   const [dropdown, setDropdown] = useState(false);
   const [isLoading, setisLoading] = useState(false);
+  const [commissionForm, setcommissionForm] = useState(false);
 
   let ref = useRef();
 
@@ -116,15 +122,310 @@ function Login(props) {
     <>
       <ParallaxProvider>
         <div className="background">
-          <Header />
+          <header id="home">
+            <nav className="navbar navbar-default navbar-sticky bootsnav">
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-2">
+                    {/* Start Header Navigation */}
+                    <div className="navbar-header">
+                      <button
+                        type="button"
+                        className="navbar-toggle"
+                        data-toggle="collapse"
+                        data-target="#navbar-menu"
+                      >
+                        <i className="fa fa-bars" />
+                      </button>
+                      <a className="navbar-brand" href="#">
+                        <img src={Logo} className="logo" alt="Logo" />
+                        <img src={LogoName} className="logo" alt="Logo" />
+                      </a>
+                    </div>
+                  </div>
+                  <div className="col-md-2">
+                    <div className="top-search" style={{ display: "block" }}>
+                      <div className="input-group">
+                        <form action="#">
+                          <input
+                            type="text"
+                            name="text"
+                            className="form-control"
+                            placeholder="Find creators"
+                          />
+                          <button type="submit">
+                            <i className="fas fa-search" />
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="collapse navbar-collapse" id="navbar-menu">
+                      <ul
+                        className="nav navbar-nav navbar-right"
+                        data-in="#"
+                        data-out="#"
+                      >
+                        <li className="dropdown">
+                          <Dropdown>
+                            <Dropdown.Toggle
+                              variant="success"
+                              id="dropdown-basic"
+                              className="menu-register-btn menu-register-btn-after-login"
+                            >
+                              Creators
+                            </Dropdown.Toggle>
 
+                            <Dropdown.Menu>
+                              <Dropdown.Item>Creators</Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        </li>
+
+                        <li className="dropdown">
+                          <Dropdown>
+                            <Dropdown.Toggle
+                              variant="success"
+                              id="dropdown-basic"
+                              className="menu-register-btn menu-register-btn-after-login"
+                            >
+                              Brands
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                              <Dropdown.Item>Brands</Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        </li>
+
+                        <li className="dropdown">
+                          <Dropdown>
+                            <Dropdown.Toggle
+                              variant="success"
+                              id="dropdown-basic"
+                              className="menu-register-btn menu-register-btn-after-login"
+                            >
+                              Resources
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                              <Dropdown.Item>Resources</Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="col-md-1">
+                    <button className="get-started">Get Started</button>
+                  </div>
+
+                  <div className="col-md-1 top-user-profile">
+                    <Dropdown>
+                      <Dropdown.Toggle variant="success">
+                        <img src={profileCircle} width={35} />
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        <Dropdown.Item>
+                          {" "}
+                          <b>Log in</b>
+                        </Dropdown.Item>
+                        <Dropdown.Item>The Creative Marketplace</Dropdown.Item>
+                        <Dropdown.Item>IZEA Flex</Dropdown.Item>
+                        <Dropdown.Item>IZEAx (Legacy)</Dropdown.Item>
+                        <Dropdown.Item>
+                          Brand Graph {commissionForm}
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          <b className="signup-menu">Sign Up</b>
+                        </Dropdown.Item>
+                        <Dropdown.Item>Support & Help</Dropdown.Item>
+                        <Dropdown.Item>Knowledge base</Dropdown.Item>
+                        <Dropdown.Item>Contact Support</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
+                </div>
+                <div className="seperator seperator-top col-md-12">
+                  <span className="border" />
+                </div>
+              </div>
+            </nav>
+            {/* End Navigation */}
+          </header>
+          {/* End Header */}
+          {/* Start Login Form 
+    ============================================= */}
+          <form
+            action="#"
+            id="login-form"
+            className="mfp-hide white-popup-block"
+          >
+            <div className="col-md-4 login-social">
+              <h4>Login with social</h4>
+              <ul>
+                <li className="facebook">
+                  <a href="#">
+                    <i className="fab fa-facebook-f" />
+                  </a>
+                </li>
+                <li className="twitter">
+                  <a href="#">
+                    <i className="fab fa-twitter" />
+                  </a>
+                </li>
+                <li className="linkedin">
+                  <a href="#">
+                    <i className="fab fa-linkedin-in" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="col-md-8 login-custom">
+              <h4>login to your registered account!</h4>
+              <div className="col-md-12">
+                <div className="row">
+                  <div className="form-group">
+                    <input
+                      className="form-control"
+                      placeholder="Email*"
+                      type="email"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-12">
+                <div className="row">
+                  <div className="form-group">
+                    <input
+                      className="form-control"
+                      placeholder="Password*"
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-12">
+                <div className="row">
+                  <label htmlFor="login-remember">
+                    <input type="checkbox" id="login-remember" />
+                    Remember Me
+                  </label>
+                  <a title="Lost Password" href="#" className="lost-pass-link">
+                    Lost your password?
+                  </a>
+                </div>
+              </div>
+              <div className="col-md-12">
+                <div className="row">
+                  <button type="submit">Login</button>
+                </div>
+              </div>
+              <p className="link-bottom">
+                Not a member yet? <a href="#">Register now</a>
+              </p>
+            </div>
+          </form>
+          {/* End Login Form */}
+          {/* Start Register Form 
+    ============================================= */}
+          <form
+            action="#"
+            id="register-form"
+            className="mfp-hide white-popup-block"
+          >
+            <div className="col-md-4 login-social">
+              <h4>Register with social</h4>
+              <ul>
+                <li className="facebook">
+                  <a href="#">
+                    <i className="fab fa-facebook-f" />
+                  </a>
+                </li>
+                <li className="twitter">
+                  <a href="#">
+                    <i className="fab fa-twitter" />
+                  </a>
+                </li>
+                <li className="linkedin">
+                  <a href="#">
+                    <i className="fab fa-linkedin-in" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="col-md-8 login-custom">
+              <h4>Register a new account</h4>
+              <div className="col-md-12">
+                <div className="row">
+                  <div className="form-group">
+                    <input
+                      className="form-control"
+                      placeholder="Email*"
+                      type="email"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-12">
+                <div className="row">
+                  <div className="form-group">
+                    <input
+                      className="form-control"
+                      placeholder="Username*"
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-12">
+                <div className="row">
+                  <div className="form-group">
+                    <input
+                      className="form-control"
+                      placeholder="Password*"
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-12">
+                <div className="row">
+                  <div className="form-group">
+                    <input
+                      className="form-control"
+                      placeholder="Repeat Password*"
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-12">
+                <div className="row">
+                  <button type="submit">Sign up</button>
+                </div>
+              </div>
+              <p className="link-bottom">
+                Are you a member? <a href="#">Login now</a>
+              </p>
+            </div>
+          </form>
+          {/* End Register Form */}
+          {/* Start About 
+    ============================================= */}
           <div className="about-area default-padding">
             <div className="container">
               <div className="row">
                 <div className="about-info">
                   {" "}
+                  {console.log(commissionForm, "commissionForm")}
                   <div className="col-md-5 col-md-offset-1 thumb banner-left">
-                    <h1>All your design tools in one place</h1>
+                    <h1 onClick={(e) => setcommissionForm(true)}>
+                      {" "}
+                      All your design tools in one place
+                    </h1>
                     <p>
                       Start growing your business by creating stunning Videos,
                       animations, branding, mockups, presentations,graphics, and
@@ -394,11 +695,12 @@ function Login(props) {
             <div className="container">
               <div className="col-md-10 heading-left">
                 <h2 style={{ color: "#4E76C9", marginBottom: "50px" }}>
-                  Todays Trading Videos
+                  Todays Trading Videos{" "}
                 </h2>
               </div>
               <div className="col-md-2 view-all-right">
-                <Link to="/casting-call">View All</Link>
+                {" "}
+                <a href="#">View All</a>
               </div>
 
               <div className="clear" />
@@ -758,6 +1060,47 @@ function Login(props) {
             </div>
           </div>
         </div>
+
+        <Modal show={commissionForm} onHide={(e) => setcommissionForm(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add Email</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <div className="row mb-12 mb-xl-12">
+              img
+              <div className="row mb-12 mb-xl-12">
+                <h2> Log in to The Creator Marketplace® </h2>
+              </div>
+              <div className="row mb-12 mb-xl-12">
+                <p> We'll check to see if you have an existing account. </p>
+              </div>
+              <div className="row mb-12 mb-xl-12">Continue with Google</div>
+              <div className="row mb-12 mb-xl-12">Email Create Account</div>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              ty
+              variant="secondary"
+              onClick={(e) => setcommissionForm(false)}
+            >
+              Close
+            </Button>
+            <Button
+              type="submit"
+              disabled={isDisabled ? "disabled" : null}
+              variant="primary"
+            >
+              Save{" "}
+              {isDisabled ? (
+                <Spinner animation="border" role="status">
+                  {" "}
+                </Spinner>
+              ) : null}
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </ParallaxProvider>
     </>
   );

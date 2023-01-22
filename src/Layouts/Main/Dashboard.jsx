@@ -34,6 +34,7 @@ import {
   card3,
 } from "../../Constants/Images";
 import { useRef } from "react";
+import Header from "./include/Header";
 
 function Dashboard(props) {
   const {
@@ -107,115 +108,8 @@ function Dashboard(props) {
     <>
       <ParallaxProvider>
         <div className="background">
-          <header id="home">
-            <nav className="navbar navbar-default navbar-sticky bootsnav">
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-2">
-                    {/* Start Header Navigation */}
-                    <div className="navbar-header">
-                      <button
-                        type="button"
-                        className="navbar-toggle"
-                        data-toggle="collapse"
-                        data-target="#navbar-menu"
-                      >
-                        <i className="fa fa-bars" />
-                      </button>
-                      <a className="navbar-brand" href="#">
-                        <img src={Logo} className="logo" alt="Logo" />
-                        <img src={LogoName} className="logo" alt="Logo" />
-                      </a>
-                    </div>
-                  </div>
-                  <div className="col-md-2">
-                    <div className="top-search" style={{ display: "block" }}>
-                      <div className="input-group">
-                        <form action="#">
-                          <input
-                            type="text"
-                            name="text"
-                            className="form-control"
-                            placeholder="Find creators"
-                          />
-                          <button type="button">
-                            <i className="fas fa-search" />
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="collapse navbar-collapse" id="navbar-menu">
-                      <ul
-                        className="nav navbar-nav navbar-right"
-                        data-in="#"
-                        data-out="#"
-                      >
-                        <li className="dropdown">
-                          <Dropdown>
-                            <Dropdown.Toggle
-                              variant="success"
-                              id="dropdown-basic"
-                              className="menu-register-btn menu-register-btn-after-login"
-                            >
-                              Creators
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                              <Dropdown.Item>Creators</Dropdown.Item>
-                            </Dropdown.Menu>
-                          </Dropdown>
-                        </li>
-
-                        <li className="dropdown">
-                          <Dropdown>
-                            <Dropdown.Toggle
-                              variant="success"
-                              id="dropdown-basic"
-                              className="menu-register-btn menu-register-btn-after-login"
-                            >
-                              Brands
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                              <Dropdown.Item>Brands</Dropdown.Item>
-                            </Dropdown.Menu>
-                          </Dropdown>
-                        </li>
-
-                        <li className="dropdown">
-                          <Dropdown>
-                            <Dropdown.Toggle
-                              variant="success"
-                              id="dropdown-basic"
-                              className="menu-register-btn menu-register-btn-after-login"
-                            >
-                              Resources
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                              <Dropdown.Item>Resources</Dropdown.Item>
-                            </Dropdown.Menu>
-                          </Dropdown>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="col-md-1">
-                    <button className="get-started">Get Started</button>
-                  </div>
-                  <div className="col-md-1 top-user-profile">
-                    <img src={profileCircle} width={35} />
-                  </div>
-                </div>
-                <div className="seperator seperator-top col-md-12">
-                  <span className="border" />
-                </div>
-              </div>
-            </nav>
-            {/* End Navigation */}
-          </header>
+         
+        <Header/>
 
           <div className="popular-courses circle  carousel-shadow default-padding default-padding-20">
             <div className="container dashboard-container">

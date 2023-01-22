@@ -29,13 +29,18 @@ import footerRight from '../Assets/images/icon-footer/footer-right.png';
 import footer4 from '../Assets/images/icon-footer/footer-4.png';
 import social from '../Assets/images/social.png';
 import Team from '../Assets/images/4.jpg';
+import upload from '../Assets/images/upload.png';
+
+import card1 from '../Assets/images/dashboard/1.png';
+import card2 from '../Assets/images/dashboard/2.png';
+import card3 from '../Assets/images/dashboard/3.png';
 
 
 export {
-  Logo,LogoName,profileCircle,MobileTop,rightMobile,MobileTwo,SearchIcon,rating,
+  Logo,LogoName,upload,profileCircle,MobileTop,rightMobile,MobileTwo,SearchIcon,rating,
   createStart,acceptIncoming,yourMagic,sideImage,c1,c2,twitter,tiktok,facebook,
   pinterest,footer1,footer2,footerCircle,footerbtn1,footer3,footerBtn2,footerRight,
-  footer4,social,instagram,Team,LogoFooter
+  footer4,social,instagram,Team,LogoFooter,card1,card2,card3
 }
 
 

@@ -4,6 +4,9 @@ import Header from '../Header/Header'
 import Aside from '../Aside/Aside'
 import Home from './Home/Home';
 import Login from './Login';
+import SignUp from './SignUp';
+import CastingCall from './casting-call';
+import Dashboard from './Dashboard';
 
 import { ToastContainer } from 'react-toastify';
 import { Detector } from "react-detect-offline";
@@ -80,6 +83,9 @@ function MainCompomentRouter() {
 
        return <Routes>
         <Route exact path="/" element={<Login />}></Route>
+        <Route exact path="/sign-up" element={<SignUp />}></Route>
+        <Route exact path="/casting-call" element={<CastingCall />}></Route>
+        <Route exact path="/dashboard" element={<Dashboard />}></Route>
        </Routes>
     }
     else {

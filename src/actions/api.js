@@ -5,4 +5,6 @@ export const IMAGES_URL = 'http://localhost:3000/fallovers-new'
 
 //export const BASE_URL = 'https://khushonlineshopee.com/fallovers-new/'
 
-export const loginUrl    = `${baseUrl}/login`
+export const loginUrl     = `${baseUrl}/login`
+export const homepageData = `${baseUrl}/get-homepage`
+

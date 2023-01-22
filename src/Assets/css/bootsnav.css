@@ -2603,6 +2603,8 @@ border-radius: 20px;
   /* background: url('../assets/images/background.png'); */
 }
 
+.right-mob video{ width: 296px; height: 100%;}
+
 .seperator-top .border{
   margin-bottom: 0px !important;
   padding-bottom: 0px !important;

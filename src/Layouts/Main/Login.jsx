@@ -156,7 +156,9 @@ function Login(props) {
                       scale={[0.75, 1]}
                       easing="easeOutQuint"
                     >
-                      <div className="mobile-video">
+
+                      <div className="mobile-video right-mobile-bg">
+                      <div className="mobile-top"></div>
                         <video
                           src="https://fallovers.com/home/video/video.mp4"
                           controls
@@ -165,21 +167,20 @@ function Login(props) {
                           preLoad="auto"
                           loop
                         >
-                          {" "}
                         </video>
                       </div>
 
                       {/* https://fallovers.com/home/video/video.mp4 */}
 
-                      <img
+                      {/* <img
                         src={MobileTop}
                         className="logo right-mobile-top-icon"
                         alt="Logo"
-                      />
+                      /> */}
                     </Parallax>
-                    <div className="right-mob">
+                    {/* <div className="right-mob">
                       <img src={rightMobile} />
-                    </div>
+                    </div> */}
                     <Parallax
                       translateX={["-100px", "0px"]}
                       scale={[0.75, 1]}

@@ -26,7 +26,7 @@
 .rating{ width: 120px; }
 
 .right-mobile-top-icon{
-	position: absolute;top: 38px;left: 210px;
+	position: absolute;top: -48px;left: 240px;
 }
 
 .right-mobile-bottom-icon{
@@ -378,6 +378,8 @@
 }
 
 
+
+
 .background{
    background: url("../../Assets//images/background.png") center no-repeat #fff;
    background-repeat: no-repeat;
@@ -440,16 +442,36 @@
 .dropdown-menu{ inset: -1px auto auto 0px;}
 
 .mobile-video video{
-   height: 50.6rem;
+   /* position: absolute; */
+   height: 522px;
+   width: 100%;
+   padding: 8px 8px 0px 8px;
+   border-radius: 38px;
+}
+
+.right-mobile-bg{
+  margin-top: -18px;
+  border-radius: 40px;
+  width: 330px;
+  border: solid 12px #E3E8ED; 
+  border-top: solid 15px #E3E8ED; 
+  border-top-left-radius: 45px;
+  border-top-right-radius: 45px;
+  background: linear-gradient(70deg, #FA9AD7 10%, #E16EE5 50%, #B941E0 80%, #B827FD 100%);
+}
+
+
+.mobile-top{
+   width: 45%;
+   height: 25px;
+   top: 10px;
    position: absolute;
-   top: 0.5rem;
-   left: 32px;
-   width: 226px;
-   border-radius: 0px 0px 25px 25px;
-   -moz-border-radius: 40px;
-   -webkit-border-radius: 40px;
-   border-radius: 26px;
-   background: rgba(0,0,0,0.2);
+   z-index: 9999999;
+   margin: auto;
+   background: #E3E8ED;
+   border-bottom-left-radius: 12px;
+   border-bottom-right-radius: 12px;
+   left: 20%;
 }
 
 .event-area .event-items .item .info{ border-radius: 14px;}

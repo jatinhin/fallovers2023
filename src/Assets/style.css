@@ -1459,7 +1459,7 @@ body, .banner-area,
 }
 
 .about-area .about-info {
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .about-area .about-info.item-block .info {

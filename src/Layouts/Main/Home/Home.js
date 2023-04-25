@@ -9,6 +9,7 @@ class Home extends Component {
                         <div className='row'>
                             <div className='col-xl-12'>
                                 <div className='row h-100'>
+
                                     <div className='col'>
                                         <div className="card card-custom card-stretch border-0 gutter-b assets_tile">
                                             <div className="card-body d-flex flex-column p-xl-4">

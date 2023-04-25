@@ -93,6 +93,9 @@ function MainCompomentRouter() {
         return <Routes>
             <Route exact path="/" element={<Wrapper><Home /></Wrapper>}></Route>
             <Route exact path="/home" element={<Wrapper><Home /></Wrapper>}></Route>
+            <Route exact path="/sign-up" element={<SignUp />}></Route>
+        <Route exact path="/casting-call" element={<CastingCall />}></Route>
+        <Route exact path="/dashboard" element={<Dashboard />}></Route>
 
         </Routes>}
 }

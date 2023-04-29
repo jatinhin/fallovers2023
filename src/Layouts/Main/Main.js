@@ -6,15 +6,28 @@ import Home from './Home/Home';
 import Login from './Login';
 import SignUp from './SignUp';
 import CastingCall from './casting-call';
-import Dashboard from './Dashboard';
+//import InfluencerList from './influencer/InfluencerList';
+//import Dashboard from './Dashboard';
+
+import Dashboard from './influencer/Dashboard';
+import InfluencerList from './influencer/InfluencerList';
+import CreatemarketPlace from './brand/CreatemarketPlace';
+import ManagedServices from './brand/ManagedServices';
+import CastingCalls from './influencer/CastingCalls';
+import CreateListing from './influencer/CreateListing';
+import MarketingResoures from './resoures/MarketingResoures';
+import OurWork from './resoures/OurWork';
+import Partners from './resoures/Partners';
+import BrandGraph from './others/BrandGraph';
+import ContactSupport from './others/ContactSupport';
+import KnowledgeBase from './others/KnowledgeBase';
+
 
 import { ToastContainer } from 'react-toastify';
 import { Detector } from "react-detect-offline";
-import { BASE_URL } from "../../actions/api";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
- 
 const Wrapper = ({ children }) => { 
 
     let navigate = useNavigate();
@@ -36,10 +49,10 @@ const Wrapper = ({ children }) => {
     return <><div className={ !AfterLoginPage ? `app-page d-flex flex-column flex-column-fluid flex-column align-items-stretch 
     h-100 ${!ActiveSubheader  ? ' has-subheader' : ''} ${pageName[2]=='home' ? `app-page-home` : ''}` : null}>
               
-              { !AfterLoginPage ? 
-              
-                   <>
-                     <Header />
+            { !AfterLoginPage ? 
+            
+                <>
+                    <Header />
                      <Aside />
                   </> : null}
                 
@@ -79,13 +92,24 @@ function MainCompomentRouter() {
  
     if(!token) {
         console.log('if---------')
-       /// return <Login />
 
        return <Routes>
         <Route exact path="/" element={<Login />}></Route>
         <Route exact path="/sign-up" element={<SignUp />}></Route>
         <Route exact path="/casting-call" element={<CastingCall />}></Route>
         <Route exact path="/dashboard" element={<Dashboard />}></Route>
+        <Route exact path="/create-listing" element={<CreateListing />}></Route>
+        <Route exact path="/casting-calls" element={<CastingCalls />}></Route>
+        <Route exact path="/market-place" element={<CreatemarketPlace />}></Route>
+        <Route exact path="/managed-service" element={<ManagedServices />}></Route>
+        <Route exact path="/influencer-marketing-resources" element={<MarketingResoures />}></Route>
+        <Route exact path="/our-work" element={<OurWork />}></Route>
+        <Route exact path="/partners" element={<Partners />}></Route>
+        <Route exact path="/influencer-search" element={<InfluencerList />}></Route>
+        <Route exact path="/brand-graph" element={<BrandGraph />}></Route>
+        <Route exact path="/contact-support" element={<ContactSupport />}></Route>
+        <Route exact path="/knowledge-base" element={<KnowledgeBase />}></Route>
+
        </Routes>
     }
     else {
@@ -94,8 +118,8 @@ function MainCompomentRouter() {
             <Route exact path="/" element={<Wrapper><Home /></Wrapper>}></Route>
             <Route exact path="/home" element={<Wrapper><Home /></Wrapper>}></Route>
             <Route exact path="/sign-up" element={<SignUp />}></Route>
-        <Route exact path="/casting-call" element={<CastingCall />}></Route>
-        <Route exact path="/dashboard" element={<Dashboard />}></Route>
+            <Route exact path="/casting-call" element={<CastingCall />}></Route>
+            <Route exact path="/dashboard" element={<Dashboard />}></Route>
 
         </Routes>}
 }

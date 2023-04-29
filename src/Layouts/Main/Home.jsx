@@ -32,7 +32,7 @@ import {
 import { useRef } from "react";
 import Footer from "./include/Footer";
 
-function Login(props) {
+function Home(props) {
   const {
     register,
     handleSubmit,
@@ -687,4 +687,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default Home;

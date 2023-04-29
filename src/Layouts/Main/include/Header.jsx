@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import "react-multi-carousel/lib/styles.css";
 import "react-tabs/style/react-tabs.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 
 import {
@@ -18,7 +18,13 @@ function Header(props) {
   const [signupModal, setSignupModal] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
 
+  const navigat = useNavigate();
+
   useEffect(() => {}, []);
+
+  const searchInfluencer = () => {
+    navigat(``);
+  };
 
   return (
     <>
@@ -52,7 +58,7 @@ function Header(props) {
                         className="form-control"
                         placeholder="Find creators"
                       />
-                      <button type="submit">
+                      <button type="button" onClick={() => searchInfluencer()}>
                         <i className="fas fa-search" />
                       </button>
                     </form>
@@ -77,7 +83,10 @@ function Header(props) {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                          <Dropdown.Item>Creators</Dropdown.Item>
+                          <Dropdown.Item>
+                            <Link to="/create-listing"> Create a listing </Link></Dropdown.Item>
+                          <Dropdown.Item>
+                            <Link to="/casting-calls"> Casting calls </Link> </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
                     </li>
@@ -93,7 +102,10 @@ function Header(props) {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                          <Dropdown.Item>Brands</Dropdown.Item>
+                          <Dropdown.Item> 
+                            <Link to="/market-place">the create market place </Link> </Dropdown.Item>
+                          <Dropdown.Item> 
+                           <Link to="/managed-service"> managed services </Link> </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
                     </li>
@@ -109,7 +121,13 @@ function Header(props) {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                          <Dropdown.Item>Resources</Dropdown.Item>
+                          <Dropdown.Item>
+                            <Link to="/influencer-marketing-resources">  influencer marketing resources </Link>
+                          </Dropdown.Item>
+                          <Dropdown.Item>
+                          <Link to="/our-work"> our work </Link> </Dropdown.Item>
+                          <Dropdown.Item>
+                          <Link to="/partners"> partners </Link> </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
                     </li>
@@ -135,10 +153,8 @@ function Header(props) {
                         Log in
                       </b>
                     </Dropdown.Item>
-                    <Dropdown.Item>The Creative Marketplace</Dropdown.Item>
-                    <Dropdown.Item>IZEA Flex</Dropdown.Item>
-                    <Dropdown.Item>IZEAx (Legacy)</Dropdown.Item>
-                    <Dropdown.Item>Brand Graph</Dropdown.Item>
+                    <Dropdown.Item>
+                      <Link to="/brand-graph">Brand Graph </Link></Dropdown.Item>
                     <Dropdown.Item>
                       <b
                         onClick={(e) => setSignupModal(true)}
@@ -147,9 +163,10 @@ function Header(props) {
                         Sign Up
                       </b>
                     </Dropdown.Item>
-                    <Dropdown.Item>Support & Help</Dropdown.Item>
-                    <Dropdown.Item>Knowledge base</Dropdown.Item>
-                    <Dropdown.Item>Contact Support</Dropdown.Item>
+                    <Dropdown.Item>
+                      <Link to="/knowledge-base"> Knowledge base </Link> </Dropdown.Item>
+                    <Dropdown.Item>
+                    <Link to="/contact-support"> Contact Support </Link></Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
@@ -194,7 +211,8 @@ function Header(props) {
 
             <Link to="/sign-up">
               <div className=" mb-12 mb-xl-12 login-create-account">
-                <button>Create Account</button>{" "}
+                <button>Create Account</button>
+                {""}
               </div>
             </Link>
           </div>

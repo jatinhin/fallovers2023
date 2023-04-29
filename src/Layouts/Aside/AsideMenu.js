@@ -4,13 +4,13 @@ import { NavLink} from 'react-router-dom';
 export default class AsideMenu extends Component {
     constructor(props) {
         super(props);
-    
         const access = JSON.parse(localStorage.getItem("access"));
     
         this.state = {
           roll: access[0].admin_roll,
         };
       }
+
     render() {
         return (
                 <ul className="sidebar-menu-list list-unstyled mb-0 pe-4">

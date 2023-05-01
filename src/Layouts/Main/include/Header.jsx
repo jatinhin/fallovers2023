@@ -10,7 +10,6 @@ import $ from "jquery";
 
 import {
   Logo,
-  LogoName,
   profileCircle,
   LogoFooter,
   gmail,
@@ -55,8 +54,7 @@ function Header(props) {
                     <i className="fa fa-bars" />
                   </button>
                   <Link className="navbar-brand" to="/">
-                    <img src={Logo} className="logo" alt="Logo" />
-                    <img src={LogoName} className="logo" alt="Logo" />
+                    <img width={130} src={Logo} className="logo" alt="Logo" />
                   </Link>
                 </div>
               </div>

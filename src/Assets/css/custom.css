@@ -80,6 +80,15 @@
  	background:#D9D9D9; padding: 15rem;
  }
 
+ .trading-video .casting-calls{
+   background: #D9D9D9;
+   padding: 6rem 22px;
+   font-size: 27px;
+   font-weight: bold;
+   line-height: 42px;
+   color: #fff;
+ }
+
  .trading-video .bottom-info{
  	opacity: 0.5;
     background: rgba(0,0,0,.1);
@@ -429,6 +438,25 @@
    font-size: 14px;
    text-transform: capitalize;
    display: -webkit-box;
+}
+
+.dropdown-item{
+   padding: 0px 22px 14px 22px !important;
+}
+
+.dropdown svg{
+   position: relative;
+   top: 2px;
+   left: -2px;
+}
+
+.dropdown a{ font-weight: bold;}
+.top-user-profile a{ font-weight: normal;}
+
+.dropdown p{
+   margin: 0px;
+   font-size: 11px;
+   line-height: 5px;
 }
 
 .btn-success:actives{
@@ -868,3 +896,209 @@ font-size: 11px;
    border-radius: 14.5082px;
    margin: 24px 0px;
  }
+
+ 
+.under-construction{
+   text-align: center;
+   margin: 22.5rem;
+   font-size: 25px;
+   text-transform: uppercase;
+   font-weight: bold;
+ }
+
+ .bg-sign-in{
+   background: #fff;
+ }
+
+ .sing-in-left{
+   background: #F8F8FF;
+   border: solid #C4C4C4 1px;
+   border-radius: 5px;
+   height: auto;
+   font-size: 20px;
+   padding:0px 100px;
+   height: 500px;
+   /* rotate: 180deg; */
+ }
+
+ .sing-in{ margin-top: 60px;}
+
+.sing-in h1{
+   font-weight: bold;
+   text-align: center;
+   font-size: 22px;
+   margin-bottom: 0px;
+}
+
+ .sing-in p{
+   margin-top: 10px;
+   font-size: 12px;
+   padding: 0rem 1.2rem;
+ }
+
+ .back button{
+   background: #F8F8FF;
+   color: #C9BCFF;
+ }
+
+ .casting-call-type{
+   font-size: 13px;
+   line-height: 20px;
+   color: #808080;
+ }
+
+ .ongoing{
+   background: #E2E2E2;
+   border-radius: 20px;
+   padding: 6px 18px 8px 18px;
+   width: max-content;
+   font-size: 15px;
+ }
+
+ .ongoing svg{
+   position: relative;
+   top: 3px;
+ }
+
+ .outer-right{
+   height: 30px;
+   width: 30px;
+   border-radius: 200px;
+   display: inline-block;
+ }
+
+.align-right{
+   text-align: right;
+}
+
+ .outer-right svg{
+   margin: 5px 6px;
+ }
+
+ .outer-timer{ 
+   background: #F8F8FF;
+   border: solid 1px #DFD7FE;
+   color: #451DA2;
+   margin: 0px 8px;
+}
+
+ .outer-doller{
+   background: #EDEDED; 
+   border: solid 1px #E2E2E2;
+   color: #016918;
+   margin: 0px 0px;
+}
+
+.filter-section{
+   margin: 10px 0px;
+}
+
+.filter-col-1{ width: 20%;}
+.filter-col-1 svg{ position: relative; top: 2px;}
+
+.filter-col-2{ width: 80%;}
+.filter{ white-space:nowrap;}
+
+.filter ul {
+   width: 100%;
+   overflow: auto;
+   overflow-y: hidden;
+ }
+
+ .trading-filter li{ cursor: pointer;}
+ 
+ .filter ul::-webkit-scrollbar {
+   height: 0px;
+ }
+
+ .arrow{
+   margin: 35px;
+ }
+
+ .arrow span{
+   background: #fff;
+   padding: 12px 12px 6px 12px;
+   border-radius: 8px;
+   font-size: 25px;
+   text-align: right;
+   cursor: pointer;
+   border: solid 1px #ebebeb;
+}
+
+.arrow-left{
+   text-align: right;
+}
+.arrow-right span{
+   background: #603AFA;
+   color: #fff;
+}
+
+.search-bar{
+   width: 100%;
+   display: block;
+   background: #fff;
+   margin-top: 65px;
+   position: absolute;
+   z-index: 999;
+   border-radius: 10px;
+   padding-bottom: 16px;
+   height: 350px;
+   overflow-y: scroll;
+   box-shadow: 4px 2px 12px  rgb(226, 226, 230);
+   border: solid 1px #fbf7f7;
+}
+
+
+.search-bar::-webkit-scrollbar {
+   width: 8px;
+   border-radius: 200px;
+   background: rgb(241, 241, 244);
+ }
+
+.trending-platforms,.tranding-cat{
+   border-bottom: solid 1px #f7f2f2;
+   padding: 6px 8px 15px 8px;
+}
+
+.market-place ul li,.search-bar-section ul li{
+   border-radius: 25px;
+   padding: 0px 10px;
+   display: inline-block;
+   font-size: 12px;
+   margin: 2px;
+   cursor: pointer;
+}
+
+.search-section ul li{
+   background: #f3f2f2;
+}
+
+.trending-platforms ul li{
+   border: solid 1px #C4C4C4;
+}
+
+.trending-platforms ul li svg{ position: relative; top: 2px;}
+ 
+.search-bar .search-title{
+   text-transform: uppercase;
+   font-size: 11px;
+   color: #878b91;
+   margin-left: 0px;
+   margin: 12px;
+   font-weight: bold;
+}
+
+.market-place li,.search-data li{
+   padding: 10px 10px 10px 10px;
+   background: #fbfbfb;
+   border-bottom: solid 1px #f3f0f0;
+   cursor: pointer;
+}
+
+.market-place{ box-shadow: 4px 2px 12px rgb(226, 226, 230); padding: 5rem; margin: 45px auto; width: 90%; text-align: center; border-radius: 10px; background: #fff; border: solid 1px #f6f3f3;}
+.market-place h1{ font-weight: bold; font-size: 35px;}
+
+.market-place .top-search { position: relative; margin: auto; width: 30%;}
+
+.market-place ul{ padding-top: 70px;}
+.market-place ul li{ background: #f1f0f2; padding: 5px 20px;}

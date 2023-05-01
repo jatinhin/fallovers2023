@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Header from '../Header/Header'
 import Aside from '../Aside/Aside'
-import Home from './Home/Home';
+import Home from '../Main/Home';
 import Login from './Login';
 import SignUp from './SignUp';
 import CastingCall from './casting-call';
@@ -94,7 +94,8 @@ function MainCompomentRouter() {
         console.log('if---------')
 
        return <Routes>
-        <Route exact path="/" element={<Login />}></Route>
+        <Route exact path="/" element={<Home />}></Route>
+        <Route exact path="/sign-in" element={<Login />}></Route>
         <Route exact path="/sign-up" element={<SignUp />}></Route>
         <Route exact path="/casting-call" element={<CastingCall />}></Route>
         <Route exact path="/dashboard" element={<Dashboard />}></Route>

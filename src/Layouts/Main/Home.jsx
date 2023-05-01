@@ -99,6 +99,17 @@ function Home(props) {
     dropdown && setDropdown(false);
   };
 
+  const [tradingVideo, settradingVideo] = useState([
+    "#FF818D",
+    "#9071FF",
+    "#016918",
+    "#2D2D2D",
+    "#3A87FA",
+    "#FF818D",
+    "#9071FF",
+    "#2D2D2D",
+  ]);
+
   return (
     <>
       <ParallaxProvider>
@@ -344,7 +355,7 @@ function Home(props) {
                   showDots={false}
                   sliderClass=""
                   slidesToSlide={1}
-                  swipeable
+                  swipeable 
                 >
                   <div
                     className="col-md-12 icon carousel-item"
@@ -442,245 +453,62 @@ function Home(props) {
                   slidesToSlide={1}
                   swipeable
                 >
-                  <div
-                    className="popular-courses-items popular-courses-carousel owl-carousel owl-theme trading-video"
-                    style={{ margin: "auto", width: "95%" }}
-                  >
-                    {/*?php for ($i=0; $i < 9; $i++) { ?*/}
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span>20k Fallovers</span>
+                  {tradingVideo.map(() => {
+                    return (
+                      <div
+                        className="popular-courses-items popular-courses-carousel owl-carousel owl-theme trading-video"
+                        style={{ margin: "auto", width: "95%" }}
+                      >
+                        <div className="item">
+                          <div className="info">
+                            <div className="author-info">
+                              <div className="thumb">
+                                <a href="#">
+                                  <img src={Team} alt="Thumb" />
+                                </a>
+                              </div>
+                              <div className="others">
+                                <a href="#">
+                                  Jonathom Kiyam {/*?php echo $i+1?*/}
+                                </a>
+                                <div className="rating">
+                                  <img src={instagram} />
+                                  <span> 20k Fallovers</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="product-img" />
+                            <div className="bottom-info">
+                              <div className="col-md-6">
+                                <ul>
+                                  <li
+                                    style={{
+                                      background: "inherit",
+                                      color: "#5EA9C6",
+                                      fontWeight: "bold",
+                                      paddingTop: "0px",
+                                    }}
+                                  >
+                                    Instagram
+                                  </li>
+                                </ul>
+                              </div>
+                              <div className="col-md-6 price">$506</div>
+                            </div>
+                            <div className="clear" />
+                            <div className="prodct-detail">
+                              Sponsored Instagram post <br /> from @sippoftea
                             </div>
                           </div>
                         </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
                       </div>
-                    </div>
-                  </div>
-
-                  <div
-                    className="popular-courses-items popular-courses-carousel owl-carousel owl-theme trading-video"
-                    style={{ margin: "auto", width: "95%" }}
-                  >
-                    {/*?php for ($i=0; $i < 9; $i++) { ?*/}
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span>20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    className="popular-courses-items popular-courses-carousel owl-carousel owl-theme trading-video"
-                    style={{ margin: "auto", width: "95%" }}
-                  >
-                    {/*?php for ($i=0; $i < 9; $i++) { ?*/}
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span>20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    className="popular-courses-items popular-courses-carousel owl-carousel owl-theme trading-video"
-                    style={{ margin: "auto", width: "95%" }}
-                  >
-                    {/*?php for ($i=0; $i < 9; $i++) { ?*/}
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span>20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    className="popular-courses-items popular-courses-carousel owl-carousel owl-theme trading-video"
-                    style={{ margin: "auto", width: "95%" }}
-                  >
-                    {/*?php for ($i=0; $i < 9; $i++) { ?*/}
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span>20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </Carousel>
               </div>
             </div>
           </div>
-         <Footer/>                        
+          <Footer />
         </div>
       </ParallaxProvider>
     </>

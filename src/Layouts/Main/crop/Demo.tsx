@@ -46,7 +46,7 @@ const defaultSrc =
     
     <div className="row" style={{lineHeight:'0px'}}>
       <div className="col-md-6" style={{margin:'0px'}}>
-        <input  type="file" id="crop-pic" accept={'image/png, image/gif, image/jpeg'} onChange={onChange} style={{width:'100%', display:'none'}} />
+        <input type="file" id="crop-pic" accept={'image/png, image/gif, image/jpeg'} onChange={onChange} style={{width:'100%', display:'none'}} />
 
      <div className='crop-default'>               
       { cropData!='#'?   

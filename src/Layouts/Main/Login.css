@@ -1,0 +1,4 @@
+.modal-dialog {
+            max-width: 80%; /* Set the maximum width as desired */
+            max-height: 80vh; /* Set the maximum height as desired */
+          }

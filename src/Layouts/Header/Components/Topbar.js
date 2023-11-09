@@ -8,8 +8,7 @@ function Topabar({data,setisFilter,isFilter,refreshData,setrefreshData}) {
  const [topData,settopData] = useState(data);   
  let navigate = useNavigate();
   
-console.log(topData.link,'linklinklink')
-
+ console.log(topData.link,'linklinklink')
  console.log(topData,'topDatatopData')
 
  return (<div className="position-fixed  subheader">
@@ -58,7 +57,6 @@ console.log(topData.link,'linklinklink')
                                         </button>
                                     </OverlayTrigger>  
                                     </li> : null }
-
 
                                  { topData.refresh ?  
                                     <li>

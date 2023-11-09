@@ -76,6 +76,11 @@ body {
   line-height: 26px;
   overflow-x: hidden;
   background-color: #ffffff;
+  
+   background: url("./images/background.png") center no-repeat #fff;
+   background-repeat: no-repeat;
+   background-size: cover;
+
 }
 
 html, body, .wrapper {
@@ -214,10 +219,11 @@ b, strong {
 }
 
 input {
-  border: 1px solid #e7e7e7;
-  border-radius: inherit;
+  border: 1px solid #DFD7FE;
+  border-radius: 12px;
   box-shadow: inherit;
-  min-height: 44px;
+  min-height: 38px;
+ padding-left: 10px;
 }
 /* Default CSS */
 .container-half {
@@ -4154,7 +4160,7 @@ body, .banner-area,
 }
 
 .adviros-details-area .tab-content li span {
-  float: right;
+  /* float: right; */
   text-transform: inherit;
 }
 
@@ -4411,7 +4417,7 @@ body, .banner-area,
   display: inline-block;
   font-weight: 300;
   margin-bottom: 10px;
-  margin-right: 10px;
+  margin-right: 0px;
   text-transform: capitalize;
 }
 
@@ -7049,4 +7055,11 @@ footer.demo .copyright {
 .demo-area .tab-navigation .nav-pills {
     display: block;
     margin-bottom: 50px;
+}
+
+
+.marketplace-cirlce img{
+  border-radius: 200px;
+  width: 100px;
+  height: 100px;
 }

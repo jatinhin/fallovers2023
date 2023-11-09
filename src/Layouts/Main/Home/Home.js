@@ -1,9 +1,12 @@
-import React, { Component, Suspense } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {Logo} from '../../../Constants/Images'
 
 class Home extends Component {
+    
     render() {
+
+    
+
         return <div className='d-flex flex-column flex-column-fluid align-items-center justify-content-center w-100 flex-position-center full-content'>
                     <div className='container'>
                         <div className='row'>

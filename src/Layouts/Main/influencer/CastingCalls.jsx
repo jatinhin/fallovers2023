@@ -1,17 +1,67 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ParallaxProvider } from "react-scroll-parallax";
 import "react-multi-carousel/lib/styles.css";
 import "react-multi-carousel/lib/styles.css";
 import * as AiIcons from "react-icons/ai";
 import * as MdIcons from "react-icons/md";
-
 import { Team } from "../../../Constants/Images";
 import Header from "../include/Header";
 import Footer from "../include/Footer";
+import { GET_CASTING_CALLS } from "../../../actions/authenticationAction";
+import FilterForm from "../common/FilterForm";
+import Filter from "../common/Filter";
+import NewCastingCalls from "./NewCastingCall";
 
 function CastingCalls(props) {
-  const [castingList, setcastingList] = useState(["#FF818D", "#9071FF", "#016918", "#2D2D2D", "#3A87FA", "#FF818D", "#9071FF", "#2D2D2D"]);
+  const [castingList, setcastingList] = useState([
+    "#FF818D",
+    "#9071FF",
+    "#016918",
+    "#2D2D2D",
+    "#3A87FA",
+    "#FF818D",
+    "#9071FF",
+    "#2D2D2D",
+  ]);
+
+  const [filter, setFilter] = useState([]);
+  const [castingCalls, setcastingCalls] = useState([]);
+  const [filterForm, setfilterForm] = useState(false);
+  const [activeTag, setactiveTag] = useState(null);
+  const [moreTag, setmoreTag] = useState(false);
+  const [sortFilter, setsortFilter] = useState(false);
+  const [filterTags, setfilterTags] = useState([]);
+  const compensationFixed = useRef();
+  const compensationNegotiable = useRef();
+
+  const getListing = (data = "") => {
+    GET_CASTING_CALLS().then((res) => {
+      console.log(res, "resresres");
+      const { data } = res;
+      if (res.status == 200) {
+        console.log(data);
+        setFilter(data.category);
+        setfilterTags(data.filter);
+        setcastingCalls(data.category);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getListing();
+    // setisLoading(true);
+  }, []);
+
+  const getInfluencer = (data) => {
+    getListing(data);
+  };
+
+  const sortListFilter = () => {
+    //alert('A')
+  };
+
+  const clearFilter = () => {};
 
   return (
     <>
@@ -21,115 +71,48 @@ function CastingCalls(props) {
 
           <div className="popular-courses circle carousel-shadow">
             <div className="container">
-              <div className="row">
-                <div className="col-md-12 filter-section">
-                  <div className="row">
-                    <div className="col-md-2 filter-col-1">
-                      <ul className="trading-filter">
-                        <li>
-                          {" "}
-                          <AiIcons.AiOutlineFilter /> Filter
-                        </li>
-                        <li>
-                          {" "}
-                          <AiIcons.AiOutlineMenuUnfold /> Sort
-                        </li>
-                      </ul>
-                    </div>
+              <Filter
+                clearFilter={clearFilter}
+                moreTag={moreTag}
+                setmoreTag={setmoreTag}
+                compensationNegotiable={compensationNegotiable}
+                compensationFixed={compensationFixed}
+                activeTag={activeTag}
+                setactiveTag={setactiveTag}
+                getInfluencer={getInfluencer}
+                setsortFilter={setsortFilter}
+                sortFilter={sortFilter}
+                filterTags={filterTags}
+                sortListFilter={sortListFilter}
+              />
 
-                    <div className="col-md-10  filter-col-2">
-                      <div className="row">
-                        <div
-                          className="col-md-12 filter"
-                          style={{ borderLeft: "2px solid rgb(211 208 212)" }}
-                        >
-                          <ul className="trading-filter">
-                            <li>Influencer Marketing</li>
-                            <li>Work for Hire</li>
-                            <li>Job Listing</li>
-                            <li>Job Listing</li>
-                            <li>Job Listing</li>
-                            <li>Job Listing sdfsdf</li>
-                            <li>Job Listing</li>
-                            <li>Job Listing</li>
-                            <li>Job Listing</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <div className="col-md-12">
+                <div style={{ clear: "both" }}></div>
+                <div
+                  className="seperator seperator-top col-md-12"
+                  style={{ marinTop: "22px" }}
+                >
+                  <span className="border"></span>
                 </div>
-
-                <div className="col-md-12">
-                  <div style={{ clear: "both" }}></div>
-                  <div
-                    className="seperator seperator-top col-md-12"
-                    style={{ marinTop: "22px" }}
-                  >
-                    <span className="border"></span>
-                  </div>
-                </div>
-
-                <div className="col-md-12 heading-left">
-                  <h2
-                    style={{
-                      color: "#4E76C9",
-                      marginTop: "30px",
-                      marginBottom: "30px",
-                    }}
-                  >
-                    All Casting Calls
-                  </h2>
-                </div>
-
-                {castingList.map((key) => {
-                  return (
-                    <div className="popular-courses-items popular-courses-carousel owl-carousel owl-theme trading-video trading-video">
-                      <div className="col-md-3">
-                        <div className="item">
-                          <div className="info">
-                            <div className="author-info">
-                              <div className="thumb">
-                                <a href="#">
-                                  <img src={Team} alt="Thumb" />
-                                </a>
-                              </div>
-                              <div className="others">
-                                <a href="#">
-                                  Jonathom Kiyam {/*?php echo $i+1?*/}
-                                </a>
-                                <div className="casting-call-type">
-                                  Influencer Marketing
-                                </div>
-                              </div>
-                            </div>
-                            <div className="product-img casting-calls" style={{background:key}}>
-                                Work with Evolv Technology
-                                Work with Evolv Technology
-                            </div>
-                            <div className="prodct-detail row">
-                              <div className="col-md-7">
-                                <div className="ongoing">
-                                  <MdIcons.MdCalendarMonth /> Ongoing
-                                </div>
-                              </div>
-                              <div className="col-md-5 align-right">
-                                <div className="outer-right outer-timer">
-                                  <MdIcons.MdOutlineTimer />
-                                </div>
-                                <div className="outer-right outer-doller">
-                                  <AiIcons.AiOutlineDollarCircle />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
               </div>
+
+              <div className="col-md-12 heading-left">
+                <h2
+                  style={{
+                    color: "#4E76C9",
+                    marginTop: "30px",
+                    marginBottom: "30px",
+                  }}
+                >
+                  All Casting Calls
+                </h2>
+                <NewCastingCalls/>
+              </div>
+
               
+            </div>
+
+            {castingList && castingList.length > 0 && 5 == 5 ? (
               <div className="row arrow">
                 <div className="col-md-6 arrow-left">
                   <span>
@@ -142,7 +125,7 @@ function CastingCalls(props) {
                   </span>
                 </div>
               </div>
-            </div>
+            ) : null}
           </div>
           <Footer />
         </div>

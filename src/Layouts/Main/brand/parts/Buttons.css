@@ -1,0 +1,15 @@
+.button {
+  width: 340px;
+  color: #838383;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  transition: border-color 0.3s ease; /* Add a transition for smooth hover effect */
+}
+
+.button.active {
+  border-color: blue;
+}
+
+.button:hover {
+  border-color: #603AFA; /* Change the border color on hover */
+}

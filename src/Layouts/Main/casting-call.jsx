@@ -1,52 +1,59 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { GET_HOMEPAGE_DATA, LOGIN } from "../../actions/authenticationAction";
-import { useForm } from "react-hook-form";
+import { GET_CASTING_CARDS} from "../../actions/authenticationAction";
 import "react-toastify/dist/ReactToastify.css";
 import { ParallaxProvider } from "react-scroll-parallax";
-import { Parallax } from "react-scroll-parallax";
 import "react-multi-carousel/lib/styles.css";
-import Dropdown from "react-bootstrap/Dropdown";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
-
-import {
-  Logo,
-  LogoName,
-  profileCircle,
-  upload,
-  footer1,
-  footer2,
-  footerCircle,
-  footerbtn1,
-  footer3,
-  footerBtn2,
-  footerRight,
-  footer4,
-  social,
-  LogoFooter, instagram,Team
-} from "../../Constants/Images";
-import { useRef } from "react";
 import Header from "./include/Header";
+import FilterForm from "./common/FilterForm";
+import NewCastingCalls from "./influencer/NewCastingCall";
+import Scrolling from "./brand/parts/Scrolling";
+import Footer from "./include/Footer";
+import { useNavigate } from "react-router-dom";
 
-function Casting(props) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    setValue,
-  } = useForm();
-  const [isDisabled, setDisabled] = useState(false);
+function Casting() {
 
-  useEffect(() => {
-    // setisLoading(true);
-    GET_HOMEPAGE_DATA().then((res) => {
-      //const { data } = res;
-    });
-  }, []);
+const itemsPerPage = 20;
+const [loading, setLoading] = useState(true);
+const [pageData, setPageData] = useState([]);
+const [page, setPage] = useState(0);
+const [pageCount, setPageCount] = useState(1);
+const [total, setTotal] = useState();
+const [categories, setCategories] = useState("")
+  const navigate = useNavigate();
+console.log("pageData", pageData);
+console.log("page", page);
+console.log("pageCount", pageCount);
 
+ const getdata = async()=> {
+    try {
+      const response = await GET_CASTING_CARDS(page, categories);
+      setPageData(response.data.data);
+      setTotal(response.data.total);
+      setCategories(response.data.category);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+      setLoading(false); 
+    }
+  }
+  const changePage = ({ selected }) => {
+    setPage(selected+1);
+  };
+  const handlecardClicks=(id)=>{
+    navigate(`/casting-call/${id}`);
+  }
+
+ useEffect(() => {
+   const pagedatacount = Math.ceil(total / itemsPerPage);
+   setPageCount(pagedatacount);
+ }, [total]);
+
+ useEffect(() => {
+   // Only call getdata when the page or category changes
+   getdata();
+ }, [page, categories]);
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -68,35 +75,12 @@ function Casting(props) {
   const [dropdown, setDropdown] = useState(false);
   const [activeForm, setactiveForm] = useState(0);
   const [submitStatus, setsubmitStatus] = useState(0);
+  const [filterForm, setfilterForm] = useState(false);
 
-  let ref = useRef();
 
-  useEffect(() => {
-    const handler = (event) => {
-      if (dropdown && ref.current && !ref.current.contains(event.target)) {
-        setDropdown(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    document.addEventListener("touchstart", handler);
-    return () => {
-      // Cleanup the event listener
-      document.removeEventListener("mousedown", handler);
-      document.removeEventListener("touchstart", handler);
-    };
-  }, [dropdown]);
 
-  const onMouseEnter = () => {
-    window.innerWidth > 960 && setDropdown(true);
-  };
+  
 
-  const onMouseLeave = () => {
-    window.innerWidth > 960 && setDropdown(false);
-  };
-
-  const closeDropdown = () => {
-    dropdown && setDropdown(false);
-  };
 
   return (
     <>
@@ -107,329 +91,50 @@ function Casting(props) {
           <div className="popular-courses circle  carousel-shadow default-padding default-padding-20">
             <div className="container">
               <div className="row">
- 
-              <div className="col-md-2">
-                 <ul className="trading-filter">
-                     <li>Filter</li>
-                     <li>Sort</li>
-                 </ul>
-              </div>
-
-
-              <div className="col-md-10">
-                 <div className="row">
-
-                  <div className="col-md-12" style={{borderLeft:'2px solid rgb(211 208 212)'}}>
-                 <ul className="trading-filter">
-                     <li>Influencer Marketing</li>
-                     <li>Work for Hire</li>
-                     <li>Job Listing</li>
-                     <li>Job Listing</li>
-                     <li>Job Listing</li>
-                     <li>Job Listing</li>
-                 </ul>
-                 </div>
-              </div>
-              </div> 
-
-              <div className="col-md-12">
-                <div style={{clear:'both'}}></div>
-                 <div className="seperator seperator-top col-md-12" style={{marinTop:"22px"}}><span className="border"></span></div>
-              </div>
-
-              <div className="col-md-12 heading-left">
-                <h2 style={{ color: "#4E76C9", marginTop:"30px", marginBottom: "30px" }}>
-                  Todays Trading Videos
-                </h2>
-              </div>
-
-                
-               <div className="popular-courses-items popular-courses-carousel owl-carousel owl-theme trading-video trading-video">
-                 <div className="col-md-3"> 
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span> 20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div className="col-md-3"> 
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span> 20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div className="col-md-3"> 
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span> 20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div className="col-md-3"> 
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span> 20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div className="col-md-3"> 
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span> 20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                 </div>  
-
-               </div>
-             </div>
-           </div>
-
-          <div
-            className="clients-area default-padding"
-            style={{ paddingTop: "0px" }}>
-            <div className="container footer-new">
-              <div className="row">
-                <div className="col-md-4 info">
-                  <img src={footer1} className="icon-1" alt="Logo" />
-                  <a
-                    className="navbar-brand"
-                    href="#"
-                    style={{ padding: "38px 15px" }}
+                <Scrolling categories={categories} />
+                <div className="col-md-12">
+                  <div style={{ clear: "both" }}></div>
+                  <div
+                    className="seperator seperator-top col-md-12"
+                    style={{ marginTop: "22px" }}
                   >
-                    <img src={LogoFooter} className="logo" alt="Logo" />
-                    <img src={LogoName} className="logo" alt="Logo" />
-                  </a>
-                  <img src={footer2} className="icon-2" alt="Logo" />
-
-                  <Parallax speed={-10} scale={[0.75, 1]} easing="easeOutQuint">
-                    <img
-                      src={footerCircle}
-                      className="icon-circle"
-                      alt="Logo"
-                    />
-                  </Parallax>
+                    <span className="border"></span>
+                  </div>
                 </div>
-                <div className="col-md-8 clients">
-                  <img src={footerbtn1} className="icon-3" alt="Logo" />
-                  <ul>
-                    <li>
-                      <img
-                        src={social}
-                        className="logo"
-                        alt="Logo"
-                        style={{ position: "relative", top: "5rem" }}
+
+                <div className="col-md-12 heading-left">
+                  <h2
+                    style={{
+                      color: "#4E76C9",
+                      marginTop: "30px",
+                      marginBottom: "30px",
+                    }}
+                  >
+                    All Casting Calls
+                  </h2>
+                </div>
+
+                <div className="popular-courses-items popular-courses-carousel owl-carousel owl-theme trading-video trading-video">
+                  <div className="col-md-12">
+                    <div>
+                      <NewCastingCalls
+                        handlecardClicks={handlecardClicks}
+                        loading={loading}
+                        pageData={pageData}
+                        pageCount={pageCount}
+                        changePage={changePage}
                       />
-                    </li>
-                  </ul>
-                  <img src={footer3} className="icon-4" alt="Logo" />
-                  <img src={footerBtn2} className="icon-5" alt="Logo" />
-
-                  <Parallax
-                    style={{ position: "absolute" }}
-                    speed={-10}
-                    easing="easeInOut"
-                  >
-                    <img src={footerRight} className="icon-6" alt="Logo" />
-                  </Parallax>
-
-                  <Parallax
-                    translateX={["-100px", "0px"]}
-                    scale={[0.75, 1]}
-                    easing="easeOutQuint"
-                  >
-                    <img src={footer4} className="icon-8" alt="Logo" />
-                  </Parallax>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <Footer />
         </div>
+
+        <FilterForm filterForm={filterForm} setfilterForm={setfilterForm} />
       </ParallaxProvider>
     </>
   );

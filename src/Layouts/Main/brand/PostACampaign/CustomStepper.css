@@ -1,0 +1,136 @@
+.custom-stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.step-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+}
+
+.step-label {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+  padding: 8px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.step-label.active {
+  background-color: #007acc;
+  color: white;
+}
+
+.step-content {
+  flex: 1;
+  margin: 0 16px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.back-button {
+  background-color: #ccc;
+  color: #333;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.next-button {
+  background-color: #007acc;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.back-button:disabled {
+  background-color: #eee;
+  color: #999;
+  cursor: not-allowed;
+}
+.form-control{
+  width: 550px;
+  height: 52px;
+  font-size: 16px;
+  border-radius: 16px;
+  border: 1px solid #ccc;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+padding-left:10px;
+}
+.form-control:focus {
+    border-color: #66afe9;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0;
+}
+
+.alert-error {
+    color: red;
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+/* FileUploader.css */
+.file-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+
+}
+
+.file-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  text-align: center;
+  display: flex;
+  position: relative;
+}
+/* FileUploader.css */
+/* Style the file input */
+input[type="file"] {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Style the upload button (when not disabled) */
+input[type="file"]:not([disabled]) {
+  background-color: #DFD7FE;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Style the upload button (when disabled) */
+input[type="file"][disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+
+.form-controls{
+background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    height: 34px;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    width: "289px";
+}

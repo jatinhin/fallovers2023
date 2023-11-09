@@ -1,156 +1,198 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ParallaxProvider } from "react-scroll-parallax";
 import "react-multi-carousel/lib/styles.css";
-import "react-multi-carousel/lib/styles.css";
-import * as AiIcons from "react-icons/ai";
-import * as MdIcons from "react-icons/md";
-import {
-  instagram,
-  Team,
-} from "../../../Constants/Images";
-
 import Header from "../include/Header";
 import Footer from "../include/Footer";
 
 function ManagedServices(props) {
-  const [castingList, setcastingList] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
-
   return (
     <>
       <ParallaxProvider>
         <div className="background">
           <Header />
 
-          <div className="popular-courses circle carousel-shadow">
+          <div className="about-area default-padding home-top-bg m-bottom-0">
             <div className="container">
               <div className="row">
-                <div className="col-md-12 filter-section">
-                  <div className="row">
-                    <div className="col-md-2 filter-col-1">
-                      <ul className="trading-filter">
-                        <li>
-                          {" "}
-                          <AiIcons.AiOutlineFilter /> Filter
-                        </li>
-                        <li>
-                          {" "}
-                          <AiIcons.AiOutlineMenuUnfold /> Sort
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="col-md-10  filter-col-2">
-                      <div className="row">
-                        <div
-                          className="col-md-12 filter"
-                          style={{ borderLeft: "2px solid rgb(211 208 212)" }}
-                        >
-                          <ul className="trading-filter">
-                            <li>Influencer Marketing</li>
-                            <li>Work for Hire</li>
-                            <li>Job Listing</li>
-                            <li>Job Listing</li>
-                            <li>Job Listing</li>
-                            <li>Job Listing sdfsdf</li>
-                            <li>Job Listing</li>
-                            <li>Job Listing</li>
-                            <li>Job Listing</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
+                <div className="about-info managed-service-top-banner">
+                  <div className="home-top">
+                    <h1>Manage Services</h1>
+                    <p>
+                      Start growing your business by creating stunning Videos,
+                      animations, branding, mockups, presentations,graphics, and
+                      professional websites!
+                    </p>
                   </div>
-                </div>
-
-                <div className="col-md-12">
-                  <div style={{ clear: "both" }}></div>
-                  <div
-                    className="seperator seperator-top col-md-12"
-                    style={{ marinTop: "22px" }}
-                  >
-                    <span className="border"></span>
-                  </div>
-                </div>
-
-                <div className="col-md-12 heading-left">
-                  <h2
-                    style={{
-                      color: "#4E76C9",
-                      marginTop: "30px",
-                      marginBottom: "30px",
-                    }}
-                  >
-                    Todays Trading Videos
-                  </h2>
-                </div>
-
-                {castingList.map(() => {
-                  return (
-                    <div className="popular-courses-items popular-courses-carousel owl-carousel owl-theme trading-video trading-video">
-                    <div className="col-md-3">
-                      <div className="item">
-                        <div className="info">
-                          <div className="author-info">
-                            <div className="thumb">
-                              <a href="#">
-                                <img src={Team} alt="Thumb" />
-                              </a>
-                            </div>
-                            <div className="others">
-                              <a href="#">
-                                Jonathom Kiyam {/*?php echo $i+1?*/}
-                              </a>
-                              <div className="rating">
-                                <img src={instagram} />
-                                <span> 20k Fallovers</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="product-img" />
-                          <div className="bottom-info">
-                            <div className="col-md-6">
-                              <ul>
-                                <li
-                                  style={{
-                                    background: "inherit",
-                                    color: "#5EA9C6",
-                                    fontWeight: "bold",
-                                    paddingTop: "0px",
-                                  }}
-                                >
-                                  Instagram
-                                </li>
-                              </ul>
-                            </div>
-                            <div className="col-md-6 price">$506</div>
-                          </div>
-                          <div className="clear" />
-                          <div className="prodct-detail">
-                            Sponsored Instagram post <br /> from @sippoftea
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  );
-                })}
-              </div>
-              
-              <div className="row arrow">
-                <div className="col-md-6 arrow-left">
-                  <span>
-                    <MdIcons.MdKeyboardArrowLeft />
-                  </span>
-                </div>
-                <div className="col-md-6 arrow-right">
-                  <span>
-                    <MdIcons.MdKeyboardArrowRight />
-                  </span>
                 </div>
               </div>
             </div>
           </div>
+
+          <div className="container width-1000">
+            <div className="row">
+              <div
+                className="col-md-12 manage-service-info"
+                style={{ marginTop: "35px" }}
+              >
+                <h2>16+ years of experience. 3.9m+ collabs.</h2>
+                <p>
+                  Trusted by the world’s largest agencies and half of the
+                  Fortune 50.
+                </p>
+
+                <div className="manage-service-info-img"></div>
+              </div>
+
+              <div className="col-md-12 manag-service-col">
+                <div className="row">
+                  <div className="col-md-6">
+                    <h2>Unmatched Experience</h2>
+                    <h3>Industry leading results and next-gen technology</h3>
+                    <p>
+                      Industry leading results anD nexteein technology Industry
+                      leading results anD nexteein technology Industry leading
+                      results anD nexteein technology Industry leading results
+                      anD nexteein technology Industry leading results anD
+                      nexteein technology Industry leading results anD nexteein
+                      technology Industry leading results anD nexteein
+                      technology Industry leading results anD nexteein
+                      technology
+                    </p>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="manag-service-col-img"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-12 manage-service-info">
+                <div className="manage-service-info-img manage-service-info-img-2"></div>
+
+                <h2>16+ years of experience. 3.9m+ collabs.</h2>
+                <p>
+                  Trusted by the world’s largest agencies and half of the
+                  Fortune 50.
+                </p>
+
+                <button>Go Behind the scenes with Follovers</button>
+              </div>
+
+              <div className="col-md-12 manag-service-col">
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="manag-service-col-img"></div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <h2>Dedicated Team</h2>
+                    <h3>Industry leading results and next-gen technology</h3>
+                    <p>
+                      Industry leading results anD nexteein technology Industry
+                      leading results anD nexteein technology Industry leading
+                      results anD nexteein technology Industry leading results
+                      anD nexteein technology Industry leading results anD
+                      nexteein technology Industry leading results anD nexteein
+                      technology Industry leading results anD nexteein
+                      technology Industry leading results anD nexteein
+                      technology
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className="col-md-12 manag-service-col"
+                style={{ marginTop: "50px" }}
+              >
+                <div className="row">
+                  <div className="col-md-6">
+                    <h2>Dedicated Team</h2>
+                    <h3>Industry leading results and next-gen technology</h3>
+                    <p>
+                      Industry leading results anD nexteein technology Industry
+                      leading results anD nexteein technology Industry leading
+                      results anD nexteein technology Industry leading results
+                      anD nexteein technology Industry leading results anD
+                      nexteein technology Industry leading results anD nexteein
+                      technology Industry leading results anD nexteein
+                      technology Industry leading results anD nexteein
+                      technology
+                    </p>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="manag-service-col-img"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className="col-md-12 manag-service-col"
+                style={{ marginTop: "50px" }}
+              >
+                <div className="row">
+                  <div className="col-md-6">
+                    <form>
+                      <h2>Request a Proposal</h2>
+                      <div className="form-group">
+                        <label>First Name*</label>
+                        <input type="text"></input>
+                      </div>
+
+                      <div className="form-group">
+                        <label>Last Name*</label>
+                        <input type="text"></input>
+                      </div>
+
+                      <div className="form-group">
+                        <label>Business Email*</label>
+                        <input type="text"></input>
+                      </div>
+
+                      <div className="form-group">
+                        <label>Comments*</label>
+                        <input type="text"></input>
+                      </div>
+
+                      <div className="form-group">
+                        <label>I Consent To Receive Emails from IZEA</label>
+                        <input type="text"></input>
+                      </div>
+
+                      <Link to="/inquiry-thanks">
+                        {" "}
+                        <button>Submit</button>
+                      </Link>
+                    </form>
+                  </div>
+
+                  <div className="col-md-6">
+                    <h2>Dedicated Team</h2>
+                    <h3>Industry leading results and next-gen technology</h3>
+                    <p>
+                      Industry leading results anD nexteein technology Industry
+                      leading results anD nexteein technology Industry leading
+                      results anD nexteein technology Industry leading results
+                      anD nexteein technology Industry leading results anD
+                      nexteein technology Industry leading results anD nexteein
+                      technology Industry leading results anD nexteein
+                      technology Industry leading results anD nexteein
+                      technology
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+
           <Footer />
         </div>
       </ParallaxProvider>
@@ -159,5 +201,3 @@ function ManagedServices(props) {
 }
 
 export default ManagedServices;
-
-

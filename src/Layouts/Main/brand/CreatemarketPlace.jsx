@@ -1,50 +1,67 @@
 import React from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ParallaxProvider } from "react-scroll-parallax";
-import { Parallax } from "react-scroll-parallax";
+import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import "react-multi-carousel/lib/styles.css";
-
-import {
-  LogoName,
-  footer1,
-  footer2,
-  footerCircle,
-  footerbtn1,
-  footer3,
-  footerBtn2,
-  footerRight,
-  footer4,
-  social,
-  LogoFooter,
-  instagram,
-  Team,
-} from "../../../Constants/Images";
+import { c1, instagram, Team } from "../../../Constants/Images";
 import Header from "../include/Header";
+import { GET_MARKET_PLACE } from "../../../actions/authenticationAction";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Footer from "../include/Footer";
+import Networks from "../common/Networks";
 
 function CreatemarketPlace(props) {
+  const [filterTags, setfilterTags] = useState([]);
+  const [influencer, setInfluencer] = useState([]);
+  const [activeTag, setactiveTag] = useState(null);
+  const [filterWork, setfilterWork] = useState(null);
+
+  const getMarketPlace = (data = "") => {
+    GET_MARKET_PLACE(data).then((res) => {
+      const { data } = res;
+      if (res.status == 200) {
+        setInfluencer(data.influencer);
+        // if (!data) {
+        setfilterTags(data.filterTags);
+      }
+      //}
+    });
+  };
+
+  useEffect(() => {
+    getMarketPlace();
+  }, []);
+
+  const getInfluencerData = (data, type) => {
+    getMarketPlace(data);
+  };
+
   return (
     <>
       <ParallaxProvider>
         <div className="background">
           <Header />
-
           <div className="popular-courses circle  carousel-shadow default-padding default-padding-20">
             <div className="container">
               <div className="row">
                 <div className="market-place">
-                  <h1>  We Are Influencer Marketing. </h1>
+                  <h1> We Are Influencer Marketing. </h1>
                   <div className="clear"></div>
-                  <div className="top-search">
+                  <div className="top-search top-search-inner">
                     <div className="input-group">
                       <form action="#">
                         <input
                           type="text"
                           name="text"
-                          className="form-control"
+                          onBlur={(e) => setfilterWork(e.target.value)}
+                          className="form-control find-work find-work"
                           placeholder="Find Work"
                         />
-                        <button type="button">
+                        <button
+                          onClick={() => getInfluencerData(filterWork, 0)}
+                          type="button"
+                        >
                           <i className="fas fa-search" />
                         </button>
                       </form>
@@ -53,308 +70,149 @@ function CreatemarketPlace(props) {
 
                   <div className="clear"></div>
 
-                  <ul>
-                    <li>Instagram</li>
-                    <li>Instagram</li>
-                    <li>Instagram</li>
-                    <li>Instagram</li>
-                    <li>Instagram</li>
-                    <li>Instagram</li>
-                  </ul>
+                  {console.log(filterTags, "filterTags")}
+
+                  {filterTags && filterTags.length > 0 ? (
+                    <ul>
+                      {filterTags.map((data) => {
+                        return (
+                          <li
+                            className={
+                              activeTag == data.tag_category_id
+                                ? "active-filter-tag"
+                                : ""
+                            }
+                            onClick={() => {
+                              setactiveTag(data.tag_category_id);
+                              getInfluencerData(data.tag_title, 1);
+                            }}
+                          >
+                            {data.tag_title}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  ) : null}
                 </div>
 
-                <div className="col-md-12 heading-left">
-                  <h2
-                    style={{
-                      color: "#4E76C9",
-                      marginTop: "30px",
-                      marginBottom: "30px",
-                    }}
-                  >
-                    Todays Trading Videos
-                  </h2>
-                </div>
+                {influencer && influencer.length > 0 ? (
+                  <div className="popular-courses circle  carousel-shadow home-today-video influencer-list">
+                    <div className="container">
+                      <div className="col-md-10 heading-left">
+                        <h2 className="influencer-list-left">
+                          Influencer Detail
+                        </h2>
+                      </div>
+                      <div className="col-md-2 view-all-right">
+                        <Link to="/create-listing">View All</Link>
+                      </div>
 
-                <div className="popular-courses-items popular-courses-carousel owl-carousel owl-theme trading-video trading-video">
-                  <div className="col-md-3">
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span> 20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
+                      <div className="clear" />
+                      <div className="row">
+                        <Carousel
+                          additionalTransfrom={0}
+                          arrows
+                          autoPlaySpeed={3000}
+                          centerMode={false}
+                          className=""
+                          containerClass="container-with-dots"
+                          dotListClass=""
+                          draggable
+                          focusOnSelect={false}
+                          infinite
+                          itemClass=""
+                          keyBoardControl
+                          minimumTouchDrag={80}
+                          pauseOnHover
+                          renderArrowsWhenDisabled={false}
+                          renderButtonGroupOutside={false}
+                          renderDotsOutside={false}
+                          responsive={{
+                            desktop: {
+                              breakpoint: {
+                                max: 3000,
+                                min: 1024,
+                              },
+                              items: 4,
+                              partialVisibilityGutter: 40,
+                            },
+                            mobile: {
+                              breakpoint: {
+                                max: 464,
+                                min: 0,
+                              },
+                              items: 1,
+                              partialVisibilityGutter: 30,
+                            },
+                            tablet: {
+                              breakpoint: {
+                                max: 1024,
+                                min: 464,
+                              },
+                              items: 2,
+                              partialVisibilityGutter: 30,
+                            },
+                          }}
+                          rewind={false}
+                          rewindWithAnimation={false}
+                          rtl={false}
+                          shouldResetAutoplay
+                          showDots={false}
+                          sliderClass=""
+                          slidesToSlide={1}
+                          swipeable
+                        >
+                          {influencer.map((data) => {
+                            return (
+                              <Link to={`/market-place-detail/${data.user_id}`}>
+                                <div
+                                  className="popular-courses-items popular-courses-carousel owl-carousel owl-theme trading-video"
+                                  style={{ margin: "auto", width: "95%" }}
+                                >
+                                  <div className="item">
+                                    <div className="info">
+                                      <div className="author-info">
+                                        <div className="thumb">
+                                          <a href="#">
+                                            <img src={Team} alt="Thumb" />
+                                          </a>
+                                        </div>
+                                        <div className="others">
+                                          <a href="#">{data.user_name}</a>
+                                          <div className="rating">
+                                            <img src={instagram} />
+                                            <span>
+                                              {" "}
+                                              {data.user_fallovers} Fallovers
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className="product-img" />
+                                      <div className="clear" />
+                                      <div className="prodct-detail">
+                                        Sponsored {data.media_name} post <br />{" "}
+                                        from @
+                                        {data.deal_network_profile.toLowerCase()}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </Link>
+                            );
+                          })}
+                        </Carousel>
                       </div>
                     </div>
                   </div>
+                ) : null}
 
-                  <div className="col-md-3">
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span> 20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-3">
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span> 20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-3">
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span> 20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-3">
-                    <div className="item">
-                      <div className="info">
-                        <div className="author-info">
-                          <div className="thumb">
-                            <a href="#">
-                              <img src={Team} alt="Thumb" />
-                            </a>
-                          </div>
-                          <div className="others">
-                            <a href="#">Jonathom Kiyam {/*?php echo $i+1?*/}</a>
-                            <div className="rating">
-                              <img src={instagram} />
-                              <span> 20k Fallovers</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="product-img" />
-                        <div className="bottom-info">
-                          <div className="col-md-6">
-                            <ul>
-                              <li
-                                style={{
-                                  background: "inherit",
-                                  color: "#5EA9C6",
-                                  fontWeight: "bold",
-                                  paddingTop: "0px",
-                                }}
-                              >
-                                Instagram
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="col-md-6 price">$506</div>
-                        </div>
-                        <div className="clear" />
-                        <div className="prodct-detail">
-                          Sponsored Instagram post <br /> from @sippoftea
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Networks title={`Collab by Platform`} />
               </div>
             </div>
           </div>
 
-          <div
-            className="clients-area default-padding"
-            style={{ paddingTop: "0px" }}
-          >
-            <div className="container footer-new">
-              <div className="row">
-                <div className="col-md-4 info">
-                  <img src={footer1} className="icon-1" alt="Logo" />
-                  <a
-                    className="navbar-brand"
-                    href="#"
-                    style={{ padding: "38px 15px" }}
-                  >
-                    <img src={LogoFooter} className="logo" alt="Logo" />
-                    <img src={LogoName} className="logo" alt="Logo" />
-                  </a>
-                  <img src={footer2} className="icon-2" alt="Logo" />
-
-                  <Parallax speed={-10} scale={[0.75, 1]} easing="easeOutQuint">
-                    <img
-                      src={footerCircle}
-                      className="icon-circle"
-                      alt="Logo"
-                    />
-                  </Parallax>
-                </div>
-                <div className="col-md-8 clients">
-                  <img src={footerbtn1} className="icon-3" alt="Logo" />
-                  <ul>
-                    <li>
-                      <img
-                        src={social}
-                        className="logo"
-                        alt="Logo"
-                        style={{ position: "relative", top: "5rem" }}
-                      />
-                    </li>
-                  </ul>
-                  <img src={footer3} className="icon-4" alt="Logo" />
-                  <img src={footerBtn2} className="icon-5" alt="Logo" />
-
-                  <Parallax
-                    style={{ position: "absolute" }}
-                    speed={-10}
-                    easing="easeInOut"
-                  >
-                    <img src={footerRight} className="icon-6" alt="Logo" />
-                  </Parallax>
-
-                  <Parallax
-                    translateX={["-100px", "0px"]}
-                    scale={[0.75, 1]}
-                    easing="easeOutQuint"
-                  >
-                    <img src={footer4} className="icon-8" alt="Logo" />
-                  </Parallax>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Footer />
         </div>
       </ParallaxProvider>
     </>

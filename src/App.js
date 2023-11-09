@@ -9,11 +9,12 @@ import './Assets/css/bootsnav.css';
 import './Assets/style.css';
 import './Assets/css/responsive.css';
 import './Assets/css/custom.css';
-
-
+import './Assets/css/style.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Layouts from './Layouts'
 function App() {
   return <Layouts />
-}
+}   
 
 export default App;

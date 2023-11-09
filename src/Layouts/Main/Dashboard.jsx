@@ -1,22 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { GET_HOMEPAGE_DATA, LOGIN } from "../../actions/authenticationAction";
-import { useForm } from "react-hook-form";
+import { GET_HOMEPAGE_DATA } from "../../actions/authenticationAction";
 import "react-toastify/dist/ReactToastify.css";
 import { ParallaxProvider } from "react-scroll-parallax";
 import { Parallax } from "react-scroll-parallax";
-import "react-multi-carousel/lib/styles.css";
-import Dropdown from "react-bootstrap/Dropdown";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 import {
-  Logo,
   LogoName,
-  profileCircle,
-  upload,
   footer1,
   footer2,
   footerCircle,
@@ -32,84 +25,22 @@ import {
   card1,
   card2,
   card3,
+  card5,
 } from "../../Constants/Images";
-import { useRef } from "react";
 import Header from "./include/Header";
 
 function Dashboard(props) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    setValue,
-  } = useForm();
-  const [isDisabled, setDisabled] = useState(false);
 
   useEffect(() => {
-    // setisLoading(true);
     GET_HOMEPAGE_DATA().then((res) => {
-      //const { data } = res;
     });
   }, []);
-
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      slidesToSlide: 3, // optional, default to 1.
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      slidesToSlide: 2, // optional, default to 1.
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      slidesToSlide: 1, // optional, default to 1.
-    },
-  };
-
-  const [dropdown, setDropdown] = useState(false);
-  const [activeForm, setactiveForm] = useState(0);
-  const [submitStatus, setsubmitStatus] = useState(0);
-
-  let ref = useRef();
-
-  useEffect(() => {
-    const handler = (event) => {
-      if (dropdown && ref.current && !ref.current.contains(event.target)) {
-        setDropdown(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    document.addEventListener("touchstart", handler);
-    return () => {
-      // Cleanup the event listener
-      document.removeEventListener("mousedown", handler);
-      document.removeEventListener("touchstart", handler);
-    };
-  }, [dropdown]);
-
-  const onMouseEnter = () => {
-    window.innerWidth > 960 && setDropdown(true);
-  };
-
-  const onMouseLeave = () => {
-    window.innerWidth > 960 && setDropdown(false);
-  };
-
-  const closeDropdown = () => {
-    dropdown && setDropdown(false);
-  };
 
   return (
     <>
       <ParallaxProvider>
         <div className="background">
-         
-        <Header/>
+          <Header />
 
           <div className="popular-courses circle  carousel-shadow default-padding default-padding-20">
             <div className="container dashboard-container">
@@ -135,7 +66,9 @@ function Dashboard(props) {
                     </div>
 
                     <div className="col-md-2 padding-0">
-                      <div className="create-listing"> Create listing </div>
+                      <div className="create-listing">
+                        <Link to={"/casting-calls"}>Create listing</Link>{" "}
+                      </div>
                     </div>
                   </div>
 
@@ -422,20 +355,22 @@ function Dashboard(props) {
                           </div>
                         </TabPanel>
                         <TabPanel>
-                          
-                        <div className="row dashboard-card-outer">
+                          <div className="row dashboard-card-outer">
                             <div className="col-md-3">
                               <div className="row dashboard-card dashboard-card-new">
                                 <div className="col-md-8">
                                   <h3>Active Todos</h3>
                                   <p className="detail">
-                                  Put yourself out there by listing your services.
+                                    Put yourself out there by listing your
+                                    services.
                                   </p>
-                                  <p className="create-list">Waiting on Buyer</p>
+                                  <p className="create-list">
+                                    Waiting on Buyer
+                                  </p>
                                 </div>
                                 <div className="col-md-4 card-icon">
                                   <img
-                                    src={card1}
+                                    src={card5}
                                     className="logo"
                                     alt="Logo"
                                   />
@@ -448,7 +383,7 @@ function Dashboard(props) {
                                 <div className="col-md-8">
                                   <h3>New Orders</h3>
                                   <p className="detail">
-                                  Browse through jobs posted by brands.
+                                    Browse through jobs posted by brands.
                                   </p>
                                   <p className="create-list">Active Orders</p>
                                 </div>
@@ -468,10 +403,12 @@ function Dashboard(props) {
                                   <h3>Admin Change Requests</h3>
                                   <div className="col-md-9 padding-0">
                                     <p className="detail">
-                                        Browse through jobs posted by brands.
+                                      Browse through jobs posted by brands.
                                     </p>
-                                  <p className="create-list">in Admin Review</p>
-                                </div>
+                                    <p className="create-list">
+                                      in Admin Review
+                                    </p>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -497,43 +434,35 @@ function Dashboard(props) {
                             <div className="card-bottom"></div>
 
                             <div className="col-md-12 listing-section">
+                              <div className="transactions-logo"></div>
 
-                                 <div className="transactions-logo">
-                                 </div>
+                              <div className="transactions-title">
+                                It appears you don't have any listings
+                              </div>
 
-                                 <div className="transactions-title">
-                                     It appears you don't have any listings
-                                 </div>
+                              <div className="transactions-title-2">
+                                Create a listing today and show the world what
+                                you can do.
+                              </div>
 
-                                 <div className="transactions-title-2">
-                                     Create a listing today and show the world what you can do.
-                                 </div>
-
-                                 <div className="transactions-btn">
-                                     Ok, Lets do this 
-                                 </div>
+                              <div className="transactions-btn">
+                                Ok, Lets do this
+                              </div>
                             </div>
                           </div>
                         </TabPanel>
 
                         <TabPanel>
-                         <div className="row dashboard-card-outer">
+                          <div className="row dashboard-card-outer">
                             <div className="col-md-3">
                               <div className="row dashboard-card dashboard-card-new">
-                                <div className="col-md-8">
+                                <div className="col-md-12">
                                   <h3>All Pitchs</h3>
                                   <p className="detail">
                                     Put yourself out there by listing your
                                     services.
                                   </p>
                                   <p className="create-list">in Admin Review</p>
-                                </div>
-                                <div className="col-md-4 card-icon">
-                                  <img
-                                    src={card1}
-                                    className="logo"
-                                    alt="Logo"
-                                  />
                                 </div>
                               </div>
                             </div>
@@ -582,7 +511,9 @@ function Dashboard(props) {
                                 <div className="col-md-8">
                                   <h3>Potential Earnings</h3>
                                   <p className="cash-amount">$0</p>
-                                  <p className="cash-out">Between - Casting Calls</p>
+                                  <p className="cash-out">
+                                    Between - Casting Calls
+                                  </p>
                                 </div>
                                 <div className="col-md-4 card-icon">
                                   <img
@@ -598,84 +529,86 @@ function Dashboard(props) {
                             <div className="card-bottom"></div>
 
                             <div className="col-md-12 listing-section">
+                              <div className="transactions-logo"></div>
 
-                                 <div className="transactions-logo">
-                                 </div>
+                              <div className="transactions-title">
+                                It appears you don't have any listings
+                              </div>
 
-                                 <div className="transactions-title">
-                                     It appears you don't have any listings
-                                 </div>
+                              <div className="transactions-title-2">
+                                Create a listing today and show the world what
+                                you can do.
+                              </div>
 
-                                 <div className="transactions-title-2">
-                                     Create a listing today and show the world what you can do.
-                                 </div>
-
-                                 <div className="transactions-btn">
-                                     Ok, Lets do this 
-                                 </div>
+                              <div className="transactions-btn">
+                                Ok, Lets do this
+                              </div>
                             </div>
-
-                          </div>                           
+                          </div>
                         </TabPanel>
 
                         <TabPanel>
-                            <div className="col-md-12 transactions-section">
+                          <div className="col-md-12 transactions-section">
+                            <div className="transactions-logo"></div>
 
-                                 <div className="transactions-logo">
-                                 </div>
-
-                                 <div className="transactions-title">
-                                     It appears you don't have any listings
-                                 </div>
-
-                                 <div className="transactions-title-2">
-                                     Create a listing today and show the world what you can do.
-                                 </div>
-
-                                 <div className="transactions-btn">
-                                     Ok, Lets do this 
-                                 </div>
+                            <div className="transactions-title">
+                              It appears you don't have any listings
                             </div>
+
+                            <div className="transactions-title-2">
+                              Create a listing today and show the world what you
+                              can do.
+                            </div>
+
+                            <div className="transactions-btn">
+                              Ok, Lets do this
+                            </div>
+                          </div>
                         </TabPanel>
 
                         <TabPanel>
-                         
-                           <div className="col-md-12 transactions-section">
-                             <div className="row">
-                                <div className="col-md-9">
-                                    <div className="transactions-logo" style={{margin:'0px AUTO 26px auto'}}>
-                                    </div>
+                          <div className="col-md-12 transactions-section">
+                            <div className="row">
+                              <div className="col-md-9">
+                                <div
+                                  className="transactions-logo"
+                                  style={{ margin: "0px AUTO 26px auto" }}
+                                ></div>
 
-                                    <div className="transactions-title">
-                                        It appears you don't have any listings
-                                    </div>
+                                <div className="transactions-title">
+                                  It appears you don't have any listings
+                                </div>
 
-                                    <div className="transactions-title-2">
-                                        Create a listing today and show the world what you can do.
-                                    </div>
+                                <div className="transactions-title-2">
+                                  Create a listing today and show the world what
+                                  you can do.
+                                </div>
 
-                                    <div className="transactions-btn">
-                                        Ok, Lets do this 
-                                    </div>
-                                    </div>  
+                                <div className="transactions-btn">
+                                  Ok, Lets do this
+                                </div>
+                              </div>
 
+                              <div className="col-md-3">
+                                <div className="social-right-icon"></div>
+                                <div className="social-right-name">
+                                  Gopal Daiya
+                                </div>
+                                <div className="social-right-fallovers">
+                                  55 Follovers
+                                </div>
 
-                                    <div className="col-md-3">
-                                        <div className="social-right-icon"></div>
-                                        <div className="social-right-name">Gopal Daiya</div>
-                                        <div className="social-right-fallovers">55 Follovers</div>
-
-                                        <ul className="social-list">
-                                            <li>About   Add  <span>Add</span></li>
-                                            <li>Location Add <span>Add</span></li>
-                                        </ul>
-
-                                    </div>
-
-                                </div>               
-                            
-                            </div>                   
-
+                                <ul className="social-list">
+                                  <li>
+                                    About Add <span>Add</span>
+                                  </li>
+                                  <li>
+                                    Location Add <span>Add</span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
                         </TabPanel>
                       </div>
                     </Tabs>

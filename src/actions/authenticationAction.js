@@ -1,19 +1,113 @@
 import axios from "axios";
-import { encode } from "js-base64";
 import {
+  BASE_URL,
+  getCastingCalls,
+  getCreatearProfile,
+  getMarketplaceDetails,
+  getcastingCalls,
+  getcreateDetail,
+  getcreateListing,
+  getfilterListing,
+  getmarketPlace,
+  getmarketPlaceCards,
   homepageData,
   loginUrl,
+  searchData,
 } from "./api";
+import { ERROR, SUCCESS } from "../Helpers";
+// import { Navigate } from "react-router-dom";
+// import { useDispatch } from "react-redux";
+import { USER_AUTHENTICATED_LOGIN } from "../redux/reducersKeys";
+//import { logUser } from "../actions/index";
 
-
+export const GET_CATEGORY = () => {
+  return axios.post(homepageData);
+};
 
 export const GET_HOMEPAGE_DATA = () => {
   return axios.post(homepageData);
 };
 
-export const LOGIN = (data) => {
+export const GET_CREATE_LISTING = (data) => {
   const formData = new FormData();
-  formData.append("username", data.email);
-  formData.append("password", data.password);
-  return axios.post(loginUrl, formData);
+  formData.append("filter", data);
+  return axios.post(getcreateListing, formData);
+};
+
+export const GET_CREATE_DETAIL = (id) => {
+  const formData = new FormData();
+  formData.append("filter", "");
+
+  return axios.post(`${(getcreateDetail, formData)}/${id}`);
+};
+
+export const GET_CREATE_PROFILE = (id) => {
+  return axios.post(`${getCreatearProfile}/${id}`);
+};
+
+export const GET_MARKET_PLACE = (data) => {
+  const formData = new FormData();
+  formData.append("filter", data);
+  return axios.post(getmarketPlace, formData);
+};
+
+export const GET_FILTER_LISTING = () => {
+  return axios.post(getfilterListing);
+};
+
+export const GET_CASTING_CALLS = () => {
+  return axios.post(getcastingCalls);
+};
+
+export const GET_SEARCH_DATA = () => {
+  return axios.post(searchData);
+};
+
+export const LOGOUT = (dispatch, navigate) => {
+  dispatch({
+    type: USER_AUTHENTICATED_LOGIN,
+    payload: "",
+  });
+
+  navigate("/");
+};
+
+export const LOGIN = (data, setIsloading, dispatch, navigate) => {
+  const formData = new FormData();
+  formData.append("userEmail", data.loginEmail);
+  formData.append("userPassword", data.loginPassword);
+  formData.append("loginStatus", 1);
+
+  axios.post(loginUrl, formData).then((response) => {
+    setIsloading(false);
+    if (response.status === 200) {
+      if (response.data.status === true) {
+        localStorage.setItem("user", response.data.data.user);
+        dispatch({
+          type: USER_AUTHENTICATED_LOGIN,
+          payload: response.data.data.user,
+        });
+
+        navigate(`/${BASE_URL}/dashboard`);
+        SUCCESS(response.data.msg);
+      } else {
+        ERROR(response.data.msg);
+      }
+    } else {
+      ERROR("Not valid");
+    }
+  });
+};
+/////////////////////////////////////////////////
+export const GET_MARKET_CARDS = () => {
+  return axios.post(getmarketPlaceCards);
+};
+export const GET_CASTING_CARDS = async (page) => {
+  return axios.post(getCastingCalls,{
+    page: page,
+  });
+  
+};
+export const GET_MARKETPLACE_DETAILS = () => {
+  return axios.post(getMarketplaceDetails);
 };

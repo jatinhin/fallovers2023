@@ -13,14 +13,19 @@ import WhiteBtn from "../utils/WhiteBtn";
 import axios from "axios";
 import PrivatePublic from "../PostACampaign/PrivatePublic";
 const PostACampaign = () => {
-  const [selectedOptions, setSelectedOptions] = useState([]);
-
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedFruits, setSelectedFruits] = useState([]);
+  const [selectedType, setSelectedType] = useState("  ");
+  const [selectedFoll, setSelectedFoll] = useState([]);
+  const [selectedDeliverables, setSelectedDeliverables] = useState([]);
+  const [deliverableCounts, setDeliverableCounts] = useState({});
+  const UserIDfetch = JSON.parse(localStorage.getItem("apiResponseData"));
+  console.log("UserIDfetch", UserIDfetch);
   const [selectedOption, setSelectedOption] = useState("");
   const handleChangeRadio = (e) => {
     setSelectedOption(e.target.value);
-    setFormErrors({ payout_type: "" }); 
+    setFormErrors({ payout_type: "" });
   };
-  const [barterError, setBarterError] = useState("");
   const [formData, setFormData] = useState({
     campaign_name: "",
     campaign_social_media_id: "",
@@ -29,15 +34,24 @@ const PostACampaign = () => {
       type: [], // Initialize an empty array for deliverable types
       qty: [], // Initialize an empty array for deliverable quantities
     },
-    followerRange: "",
+    campaign_followers_range: "",
     InfluencerRequired: "",
     campaign_start_date: "",
     campaign_end_date: "",
-    promotionGoals: "",
-    campaignBrief: "",
+    goal: "",
+    brief_description: "",
     payout_type: "",
-    payout_product:"",
-    payout_influencer:"",
+    payout_product: "",
+    payout_influencer: "",
+    user_id: UserIDfetch?.user_id,
+    type: "",
+    milestone:{
+      milestone_deliver:[],
+      milestone_payout:[]
+    },
+    max_payout:"",
+    max_payout_from:""
+    
   });
 
   const [formErrors, setFormErrors] = useState({
@@ -45,14 +59,19 @@ const PostACampaign = () => {
     campaign_social_media_id: "",
     campaign_category_id: "",
     campaign_deliverables: "",
-    followerRange: "",
+    campaign_start_date: "",
+    campaign_end_date: "",
+    campaign_followers_range: "",
     InfluencerRequired: "",
     Date: "",
-    promotionGoals: "",
-    campaignBrief: "",
+    goal: "",
+    brief_description: "",
     payout_type: "",
     payout_product: "",
-    payout_influencer:"",
+    payout_influencer: "",
+    type: "",
+    milestone:""
+    
   });
 
   const validateInformationForm = () => {
@@ -65,17 +84,32 @@ const PostACampaign = () => {
       errors.campaign_social_media_id =
         "campaign_social_media_id Name is required";
     }
-    if (!formData.campaign_category_id) {
+    if (!formData.campaign_deliverables.type) {
+      errors.campaign_social_media_id =
+        "campaign_social_media_id Name is required";
+    }
+
+    if (selectedCategories.length === 0) {
       errors.campaign_category_id = "Listing Category is required";
     }
-    if (selectedOptions.length === 0) {
-      errors.campaign_deliverables = "campaign_deliverables is required";
-      errors.followerRange = "follower Range is required";
+    if (
+      formData.campaign_deliverables.type.length === 0 &&
+      formData.campaign_deliverables.qty.length === 0
+    ) {
+      errors.campaign_deliverables = "deliverables is required";
+    }
+    if (selectedFoll.length === 0) {
+      errors.followerRange = "Follower range is required";
     }
     if (!formData.InfluencerRequired) {
       errors.InfluencerRequired = "Influencer Required is required";
     }
-
+    if (!formData.campaign_start_date) {
+      errors.campaign_start_date = " Date is required";
+    }
+    if (!formData.campaign_end_date) {
+      errors.campaign_end_date = "Date is required";
+    }
     setFormErrors(errors);
 
     return Object.keys(errors).length === 0;
@@ -83,12 +117,12 @@ const PostACampaign = () => {
 
   const validateRequirementForm = () => {
     const errors = {};
-    if (!formData.promotionGoals) {
-      errors.promotionGoals = "Please fill out this field.";
+    if (!formData.goal) {
+      errors.goal = "Please fill out this field.";
     }
 
-    if (!formData.campaignBrief) {
-      errors.campaignBrief = "Please fill out this field.";
+    if (!formData.brief_description) {
+      errors.brief_description = "Please fill out this field.";
     }
     setFormErrors({ ...formErrors, ...errors });
     return Object.keys(errors).length === 0;
@@ -98,16 +132,23 @@ const PostACampaign = () => {
     if (!selectedOption) {
       setFormErrors({ payout_type: "Please select a payout type." }); // Set an error message if no option is selected.
       return false; // There is an error
-    } 
+    }
     if (!formData.payout_product) {
       errors.payout_product = "payout product is required";
     }
     if (!formData.payout_influencer) {
       errors.payout_influencer = "payout influencer is required";
     }
-    return true; 
+    return true;
   };
-
+  const validateType = () => {
+    const errors={}
+    if (!selectedType) {
+      errors.type = "Please select a campaign type.";
+    }
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
   const handleChange = (event) => {
     const fieldName = event.target.name;
     setFormData({ ...formData, [fieldName]: event.target.value });
@@ -125,8 +166,8 @@ const PostACampaign = () => {
     } else if (activebtn === 2) {
       if (
         validateInformationForm() &&
-        validateRequirementForm() &&
-        !validatePayoutForm()
+        validateRequirementForm() 
+        
       ) {
         // Validation successful, move to the next step
         setActivebtn(activebtn + 1);
@@ -136,15 +177,17 @@ const PostACampaign = () => {
         setactivestep(2);
       }
     } else if (activebtn === 3 && activestep === 2) {
-      handleSubmit();
+      if (validateType()) {
+        handleSubmit();
+      }
     }
   };
   const [activestep, setactivestep] = useState(1);
   const handleSubmit = () => {
-    if (activebtn === 3 && activestep===2) {
-      
+    if (activebtn === 3 && activestep === 2) {
       axios
-        .post("https://fallovers.com/fallovers-api/api/v1/create-campaign", 
+        .post(
+          "https://fallovers.com/fallovers-api/api/v1/create-campaign",
           // Include your form data here
           formData
         )
@@ -161,23 +204,28 @@ const PostACampaign = () => {
 
   console.log("formdata", formData);
 
+  const handleTypeChange = (type) => {
+    setSelectedType(type);
+    setFormData((prevData) => ({
+      ...prevData,
+      type: type,
+    }));
+  };
 
+  const mapSelectedOptionToValue = (option) => {
+    switch (option) {
+      case "option1": // Barter
+        return 0;
+      case "option2": // Fixed
+        return 1;
+      case "option3": // Milestone
+        return 2;
+      default:
+        return -1; // Handle unknown options as needed
+    }
+  };
 
-
-   const mapSelectedOptionToValue = (option) => {
-     switch (option) {
-       case "option1": // Barter
-         return 0;
-       case "option2": // Fixed
-         return 1;
-       case "option3": // Milestone
-         return 2;
-       default:
-         return -1; // Handle unknown options as needed
-     }
-   };
-
-   // Handle radio button changes
+  // Handle radio button changes
   //  const handleRadioChange = (event) => {
   //    const selectedValue = mapSelectedOptionToValue(event.target.value);
   //    if (selectedValue !== -1) {
@@ -188,52 +236,59 @@ const PostACampaign = () => {
   //      }));
   //    }
   //  };
-const handleRadioChange = (event) => {
-  const selectedValue = mapSelectedOptionToValue(event.target.value);
-  if (selectedValue !== -1) {
-    handleChangeRadio(event); // Update the selected option in the component state
+  const handleRadioChange = (event) => {
+    const selectedValue = mapSelectedOptionToValue(event.target.value);
+    if (selectedValue !== -1) {
+      handleChangeRadio(event); // Update the selected option in the component state
 
-    // Create a new object for the payout_data based on selected payout_type
-    let payout_data = {};
+      // Create a new object for the payout_data based on selected payout_type
+      let payout_data = {};
 
-    if (selectedValue === 0) {
-      // If payout_type is 0, set the appropriate properties
-      payout_data = {
-        payout_type: selectedValue,
-        payout_product: "",
-        payout_influencer: "",
-        milestone:""
-      };
-    } else if (selectedValue === 1) {
-      // If payout_type is 1, set the appropriate properties
-      payout_data = {
-        payout_type: selectedValue,
-        max_payout_from: "",
-        max_payout: "",
-        milestone: "",
-      };
-    } else if (selectedValue === 2) {
-      // If payout_type is 2, set the appropriate properties
-      payout_data = {
-        payout_type: selectedValue,
-        max_payout_from: "",
-        milestone:"",
-        max_payout: "",
-      };
+      if (selectedValue === 0) {
+        // If payout_type is 0, set the appropriate properties
+        payout_data = {
+          payout_type: selectedValue,
+          payout_product: "",
+          payout_influencer: "",
+          milestone: {
+            milestone_deliver: [],
+            milestone_payout: [],
+          },
+        };
+      } else if (selectedValue === 1) {
+        // If payout_type is 1, set the appropriate properties
+        payout_data = {
+          payout_type: selectedValue,
+          max_payout_from: "",
+          max_payout: "",
+          milestone: {
+            milestone_deliver: [],
+            milestone_payout: [],
+            milestone_Days:[]
+          },
+        };
+      } else if (selectedValue === 2) {
+        // If payout_type is 2, set the appropriate properties
+        payout_data = {
+          payout_type: selectedValue,
+          max_payout_from: "",
+          max_payout: "",
+          milestone: {
+            milestone_deliver: [],
+            milestone_payout: [],
+            milestone_Days: [],
+          },
+        };
+      }
+
+      // Update formData with the payout_data
+      setFormData(() => ({
+        ...formData,
+        ...payout_data,
+      }));
     }
+  };
 
-    // Update formData with the payout_data
-    setFormData(() => ({
-      ...formData,
-      ...payout_data,
-    }));
-  }
-};
-
-
-
-
-  
   const handleBtnClick = () => {
     if (activebtn === 3 && activestep == 2) {
       // Moving backward
@@ -247,39 +302,38 @@ const handleRadioChange = (event) => {
   };
 
   const handleupperclicks = (stepIndex) => {
-     if (stepIndex > activebtn + 1) {
-     console.log("You can't skip steps.");
-     return;
-   }
+    if (stepIndex > activebtn + 1) {
+      console.log("You can't skip steps.");
+      return;
+    }
 
-   if (stepIndex === activebtn - 1) {
-     // If moving backward to a previous step, allow it without further validation
-     setActivebtn(stepIndex);
-     return;
-   }
+    if (stepIndex === activebtn - 1) {
+      // If moving backward to a previous step, allow it without further validation
+      setActivebtn(stepIndex);
+      return;
+    }
 
-   const currentStep = buttonData[activebtn - 1];
+    const currentStep = buttonData[activebtn - 1];
 
-   // Based on the current step, perform validation before moving forward
-   if (activebtn === 1 && validateInformationForm()) {
-     setActivebtn(stepIndex);
-   } else if (
-     activebtn === 2 &&
-     validateInformationForm() &&
-     validateRequirementForm()
-   ) {
-     setActivebtn(stepIndex);
-   } else if (
-     activebtn === 3 &&
-     !validateInformationForm() &&
-     !validateRequirementForm() &&
-     stepIndex === 2
-   ) {
-     // Allow moving back from step 3 to step 2 without validation
-     setActivebtn(stepIndex);
-   }
- };
-  
+    // Based on the current step, perform validation before moving forward
+    if (activebtn === 1 && validateInformationForm()) {
+      setActivebtn(stepIndex);
+    } else if (
+      activebtn === 2 &&
+      validateInformationForm() &&
+      validateRequirementForm()
+    ) {
+      setActivebtn(stepIndex);
+    } else if (
+      activebtn === 3 &&
+      !validateInformationForm() &&
+      !validateRequirementForm() &&
+      stepIndex === 2
+    ) {
+      // Allow moving back from step 3 to step 2 without validation
+      setActivebtn(stepIndex);
+    }
+  };
 
   const buttonData = [
     { label: "Requirements", value: 1, hoverBorderRadius: "20px 0 0 0" },
@@ -371,8 +425,16 @@ const handleRadioChange = (event) => {
               setFormErrors={setFormErrors}
               handleChange={handleChange}
               setFormData={setFormData}
-              selectedOptions={selectedOptions}
-              setSelectedOptions={setSelectedOptions}
+              selectedCategories={selectedCategories}
+              setSelectedCategories={setSelectedCategories}
+              selectedFruits={selectedFruits}
+              setSelectedFruits={setSelectedFruits}
+              selectedFoll={selectedFoll}
+              setSelectedFoll={setSelectedFoll}
+              selectedDeliverables={selectedDeliverables}
+              setSelectedDeliverables={setSelectedDeliverables}
+              deliverableCounts={deliverableCounts}
+              setDeliverableCounts={setDeliverableCounts}
             />
           )}
           {activebtn === 2 && (
@@ -390,13 +452,14 @@ const handleRadioChange = (event) => {
               formErrors={formErrors}
               setFormErrors={setFormErrors}
               setFormData={setFormData}
-              barterError={barterError}
-              setBarterError={setBarterError}
               handleRadioChange={handleRadioChange}
             />
           )}
           {activebtn === 3 && activestep === 2 && (
-            <PrivatePublic/>
+            <PrivatePublic
+              onTypeChange={handleTypeChange}
+              formErrors={formErrors}
+            />
           )}
 
           <Stack

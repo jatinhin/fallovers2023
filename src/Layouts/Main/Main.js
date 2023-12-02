@@ -265,7 +265,7 @@ function MainCompomentRouter() {
         path="/brand/marketplace/:user_id"
         element={<MarketplaceDetail />}
       />
-      <Route path="/brand/marketplace/chat/:user_id" element={<Faltu />} />
+      <Route path="/brand/marketplace/chat" element={<Faltu />} />
       <Route path="/brand/dashboard" element={<Dashboardp />} />
       <Route path="/brand/Casting-detail" element={<Castingdetail />} />
       <Route path="/shimmer" element={<SliderShimmer />} />
@@ -274,6 +274,7 @@ function MainCompomentRouter() {
       <Route exact path="/casting-call" element={<CastingCall />}></Route>
       <Route exact path="/casting-call/:id" element={<Castingdetail />}></Route>
       <Route exact path="/casting-call/:id/chat" element={<Faltu />}></Route>
+      <Route exact path="/casting-call/chat" element={<Faltu />}></Route>
     </Routes>
   );
 }

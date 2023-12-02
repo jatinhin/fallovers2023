@@ -3,9 +3,7 @@ import React, { useEffect, useState } from "react";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import "react-datepicker/dist/react-datepicker.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-free/css/all.css";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import axios from "axios";
 import ReactDatePicker from "react-datepicker";
 import "./CustomStepper.css";
@@ -40,19 +38,31 @@ function Counter({ count, onCountChange }) {
 const Information = ({
   formData,
   formErrors,
-  handleChange,
   setFormData,
   selectedOptions,
   setSelectedOptions,
   setFormErrors,
+  selectedCategories,
+  setSelectedCategories,
+  selectedFruits,
+  setSelectedFruits,
+  selectedFoll,
+  setSelectedFoll,
+  selectedDeliverables,
+setSelectedDeliverables,
+deliverableCounts,
+setDeliverableCounts,
 }) => {
   const options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"];
   const [startToday, setStartToday] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState(new Date);
+
+
+
   const handleStartTodayChange = (e) => {
     const { checked } = e.target;
-    setStartToday(checked);
+    setStartToday(checked)
 
     if (checked) {
       // If the checkbox is checked, set the start date to today's date
@@ -63,6 +73,12 @@ const Information = ({
         campaign_start_date: today.toISOString().split("T")[0],
         campaign_end_date: endDate,
       });
+       setFormErrors({
+         ...formErrors,
+         campaign_start_date: "",
+         campaign_end_date: "", // Clear end date error
+       });
+      
     } else {
       // If the checkbox is unchecked, reset the start date to its previous value
       setStartDate(new Date());
@@ -74,6 +90,13 @@ const Information = ({
       });
     }
   };
+  // const handleEndDateChange = (date) => {
+  //   setEndDate(date);
+  //   setFormData({
+  //     ...formData,
+  //     campaign_end_date: date.toISOString().split("T")[0],
+  //   });
+  // };
   const handleEndDateChange = (date) => {
     setEndDate(date);
     setFormData({
@@ -95,6 +118,7 @@ const Information = ({
       campaign_start_date: startDate.format("YYYY-MM-DD"),
       campaign_end_date: endDate.format("YYYY-MM-DD"),
     });
+    
   };
 
   const [mediaOptions, setMediaOptions] = useState([]);
@@ -118,32 +142,79 @@ const Information = ({
 
   //////////////////////////////////////////////////
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isDropdown3Open, setDropdown3Open] = useState(false);
   const [isDropdown2Open, setDropdown2Open] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [selectedFruits, setSelectedFruits] = useState([]);
+  
   const [fruitCounts, setFruitCounts] = useState({});
   const fruits = ["Apple", "Banana", "Orange", "Grapes", "Mango"];
-  const inputRef = useRef(null);
 
-  const handleCountChange = (fruit, newCount) => {
-    setFruitCounts({ ...fruitCounts, [fruit]: newCount });
-  };
+  // const handleCountChange = (fruit, newCount) => {
+  //   setFruitCounts({ ...fruitCounts, [fruit]: newCount });
+  // };
+const handleFollowers = (selectedFollower) => {
+  setSelectedFoll([selectedFollower]);
 
-  const handleFruitSelection = (fruit) => {
-    if (selectedFruits.includes(fruit)) {
-      setSelectedFruits((prevSelectedFruits) =>
-        prevSelectedFruits.filter((selectedFruit) => selectedFruit !== fruit)
-      );
-    } else {
-      setSelectedFruits([...selectedFruits, fruit]);
-    }
+  // Clear the error message when a checkbox is checked
+  setFormErrors({
+    ...formErrors,
+    campaign_followers_range: "",
+  });
 
-    // Clear the error message when a checkbox is checked
-    setFormErrors({
-      ...formErrors,
-      campaign_deliverables: "",
+  // Save the selected follower in the formData state
+  setFormData({
+    ...formData,
+    campaign_followers_range: selectedFollower,
+  });
+};
+
+
+
+  const handleFruitSelection = (deliverable) => {
+    setSelectedDeliverables((prevSelectedDeliverables) => {
+      const updatedDeliverables = prevSelectedDeliverables.includes(deliverable)
+        ? prevSelectedDeliverables.filter(
+            (selectedDeliverable) => selectedDeliverable !== deliverable
+          )
+        : [...prevSelectedDeliverables, deliverable];
+
+      // Update the input field value when a deliverable is selected
+      updateDeliverablesFormData(updatedDeliverables);
+
+      return updatedDeliverables;
     });
   };
+
+  const handleCountChange = (deliverable, newCount) => {
+    setDeliverableCounts((prevDeliverableCounts) => {
+      const updatedCounts = {
+        ...prevDeliverableCounts,
+        [deliverable]: newCount,
+      };
+
+      // Update the input field value when the count changes
+      updateDeliverablesFormData(selectedDeliverables, updatedCounts);
+
+      return updatedCounts;
+    });
+  };
+
+  const updateDeliverablesFormData = (updatedDeliverables) => {
+    const types = updatedDeliverables.map((deliverable) => deliverable);
+    const quantities = updatedDeliverables.map(
+      (deliverable) => deliverableCounts[deliverable] || 0
+    );
+
+    setFormData({
+      ...formData,
+      campaign_deliverables: {
+        type: types,
+        qty: quantities,
+      },
+    });
+  };
+
+
+  //////////////
  const handlecategorySelection = (category) => {
    if (selectedCategories.includes(category)) {
      setSelectedCategories((prevSelectedCategory) =>
@@ -156,18 +227,52 @@ const Information = ({
    }
 
    // Update the input field value when a category is selected
-   const selectedCategoryNames = selectedCategories.join(", ");
+   const selectedCategoryNames = selectedCategories.includes(category)
+     ? selectedCategories.filter(
+         (selectedCategory) => selectedCategory !== category
+       )
+     : [...selectedCategories, category];
+
    setFormData({
      ...formData,
-     campaign_category_id: selectedCategoryNames,
+     campaign_category_id: selectedCategoryNames.join(", "),
+   });
+
+   setFormErrors({
+     ...formErrors,
+     campaign_category_id: "",
    });
  };
+const categoriesDropdownRef = useRef(null);
+const followersDropdownRef = useRef(null);
+const deliverablesDropdownRef = useRef(null);
+
+
 
 
   useEffect(() => {
-    // Add a click event listener to the document to close the dropdown when clicking outside the component
     function handleClickOutside(event) {
-      if (inputRef.current && !inputRef.current.contains(event.target)) {
+      // Check if the click is outside the categories dropdown
+      if (
+        categoriesDropdownRef.current &&
+        !categoriesDropdownRef.current.contains(event.target)
+      ) {
+        setDropdown2Open(false);
+      }
+
+      // Check if the click is outside the followers dropdown
+      if (
+        followersDropdownRef.current &&
+        !followersDropdownRef.current.contains(event.target)
+      ) {
+        setDropdown3Open(false);
+      }
+
+      // Check if the click is outside the deliverables dropdown
+      if (
+        deliverablesDropdownRef.current &&
+        !deliverablesDropdownRef.current.contains(event.target)
+      ) {
         setDropdownOpen(false);
       }
     }
@@ -203,12 +308,12 @@ const Information = ({
     } else {
       setSelectedOptions([...selectedOptions, option]);
     }
-  };
+  };  
 
   const updateInputValue = () => {
     setInputValue(`${selectedOptions.length} selected`);
   };
-
+/////////////////////////////////////////
   return (
     <Stack>
       <Stack width={"550px"}>
@@ -252,42 +357,22 @@ const Information = ({
             </div>
           </Stack>
           <Stack width={"50%"} className="form-group">
-            {/* <select
-              className="form-control"
-              style={{ width: "100%" }}
-              name="campaign_category_id"
-              value={formData.campaign_category_id}
-              onChange={handleChange}
-            >
-              <option value="">Select Categories</option>
-              {mediaCategories.map((media) => (
-                <option key={media.media_id} value={media.media_id}>
-                  {media.category_title}
-                </option>
-              ))}
-            </select> */}
-
             <div className="form-group">
-              <div
-                className="form-group"
-                ref={inputRef}
-                style={{ position: "relative" }}
-              >
+              <div className="form-group" style={{ position: "relative" }}>
                 <input
                   onClick={() => setDropdown2Open(!isDropdown2Open)}
-                  value={selectedCategories
-                    .map((category) => category.category_title)
-                    .join(", ")}
+                  value={selectedCategories.join(", ")}
                   className="form-control"
                   type="text"
                   placeholder="select Categories"
                   onChange={handleChangess}
                   style={{ width: "100%" }}
+                  ref={categoriesDropdownRef}
                 />
 
                 {isDropdown2Open && (
                   <div
-                    className="fruit-dropdown"
+                    onClick={(e) => e.stopPropagation()}
                     style={{
                       marginTop: "10px",
                       border: "1px solid #9277FF",
@@ -299,6 +384,7 @@ const Information = ({
                       display: "flex",
                       flexDirection: "column",
                       gap: "10px",
+                      zIndex: 10,
                     }}
                   >
                     {mediaCategories.map((media, index) => (
@@ -315,6 +401,9 @@ const Information = ({
                             onChange={() =>
                               handlecategorySelection(media.category_title)
                             }
+                            checked={selectedCategories.includes(
+                              media.category_title
+                            )}
                           />
                           <Typography
                             fontSize={"15px"}
@@ -329,12 +418,11 @@ const Information = ({
                     ))}
                   </div>
                 )}
+                <div className="alert-error" style={{ color: "red" }}>
+                  {formErrors.campaign_category_id}
+                </div>
               </div>
             </div>
-
-            <span className="alert-error" style={{ color: "red" }}>
-              {formErrors.campaign_category_id}
-            </span>
           </Stack>
         </Stack>
         <Stack
@@ -345,24 +433,20 @@ const Information = ({
         >
           <Stack className="form-group" justifyContent={"center"} width={"50%"}>
             <div className="form-group">
-              <div
-                className="form-group"
-                ref={inputRef}
-                style={{ position: "relative" }}
-              >
+              <div className="form-group" style={{ position: "relative" }}>
                 <input
                   type="text"
-                  readOnly
                   placeholder="Select Deliverables"
-                  value={selectedFruits.join(", ")}
+                  value={selectedDeliverables.join(", ")}
                   onClick={() => setDropdownOpen(!isDropdownOpen)}
                   className="form-control"
                   style={{ width: "100%" }}
                   onChange={handleChangess}
+                  ref={deliverablesDropdownRef}
                 />
                 {isDropdownOpen && (
                   <div
-                    className="fruit-dropdown"
+                    onClick={(e) => e.stopPropagation()}
                     style={{
                       marginTop: "10px",
                       border: "1px solid #9277FF",
@@ -376,7 +460,7 @@ const Information = ({
                       gap: "10px",
                     }}
                   >
-                    {fruits.map((fruit, index) => (
+                    {/* {fruits.map((fruit, index) => (
                       <Stack
                         key={index}
                         direction={"row"}
@@ -406,6 +490,37 @@ const Information = ({
                           </Typography>
                         </Stack>
                       </Stack>
+                    ))} */}
+                    {fruits.map((fruit, index) => (
+                      <Stack
+                        key={index}
+                        direction={"row"}
+                        gap={3}
+                        width={"166px"}
+                      >
+                        <Counter
+                          count={deliverableCounts[fruit] || 0}
+                          onCountChange={(newCount) =>
+                            handleCountChange(fruit, newCount)
+                          }
+                        />
+                        <Stack direction={"row"} gap={1}>
+                          <input
+                            style={{ margin: "0px", width: "17px" }}
+                            type="checkbox"
+                            onChange={() => handleFruitSelection(fruit)}
+                            checked={selectedDeliverables.includes(fruit)}
+                          />
+                          <Typography
+                            fontSize={"15px"}
+                            display={"flex"}
+                            justifyContent={"center"}
+                            alignItems={"center"}
+                          >
+                            {fruit}
+                          </Typography>
+                        </Stack>
+                      </Stack>
                     ))}
                   </div>
                 )}
@@ -416,8 +531,65 @@ const Information = ({
             </div>
           </Stack>
           <Stack className="form-group" justifyContent={"center"} width={"50%"}>
-            <div className="alert-error" style={{ color: "red" }}>
-              {formErrors.followerRange}
+            <div className="form-group">
+              <div className="form-group" style={{ position: "relative" }}>
+                <input
+                  type="text"
+                  placeholder="Select Followers"
+                  value={selectedFoll.join(", ")}
+                  onClick={() => setDropdown3Open(true)}
+                  className="form-control"
+                  style={{ width: "100%" }}
+                  onChange={handleChangess}
+                  ref={followersDropdownRef}
+                />
+                {isDropdown3Open && (
+                  <div
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                      marginTop: "10px",
+                      border: "1px solid #9277FF",
+                      borderRadius: "10px",
+                      width: "260px",
+                      position: "absolute",
+                      backgroundColor: "#F8F8FF",
+                      padding: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "10px",
+                    }}
+                  >
+                    {options.map((Followers, index) => (
+                      <Stack
+                        key={index}
+                        direction={"row"}
+                        gap={3}
+                        width={"166px"}
+                      >
+                        <Stack direction={"row"} gap={1}>
+                          <input
+                            style={{ margin: "0px", width: "17px" }}
+                            type="checkbox"
+                            onChange={() => handleFollowers(Followers)}
+                            checked={selectedFoll.includes(Followers)}
+                          />
+                          <Typography
+                            fontSize={"15px"}
+                            display={"flex"}
+                            justifyContent={"center"}
+                            alignItems={"center"}
+                          >
+                            {Followers}
+                          </Typography>
+                        </Stack>
+                      </Stack>
+                    ))}
+                  </div>
+                )}
+                <div className="alert-error" style={{ color: "red" }}>
+                  {formErrors.campaign_followers_range}
+                </div>
+              </div>
             </div>
           </Stack>
         </Stack>
@@ -465,7 +637,7 @@ const Information = ({
               {startToday ? (
                 <ReactDatePicker
                   className="form-control"
-                  selected={startDate}
+                  selected={endDate}
                   onChange={handleEndDateChange}
                 />
               ) : (
@@ -483,6 +655,9 @@ const Information = ({
                   />
                 </DateRangePicker>
               )}
+              <div className="alert-error" style={{ color: "red" }}>
+                {formErrors.campaign_end_date}
+              </div>
             </Stack>
           </Stack>
         </Stack>

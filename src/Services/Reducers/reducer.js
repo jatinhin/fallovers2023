@@ -1,6 +1,6 @@
 import { ADD_TO_CART } from '../Constants/constants'
-z
-export default function cardItems(state = [], action) {
+
+export default function cardItems(state = [], action) { console.log(action,'sssss----')
     switch (action.type) {
         case ADD_TO_CART:
             // console.warn("reducer",action)

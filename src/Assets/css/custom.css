@@ -508,11 +508,11 @@ select {
   line-height: 22px;
 }
 
-/* .background {
+.background {
    background: url("../../Assets//images/background.png") center no-repeat #fff;
    background-repeat: no-repeat;
    background-size: cover;
-} */
+}
 
 .background {
   background: url("../../Assets//images/background.png") center no-repeat #fff;

@@ -21,7 +21,12 @@ const Fixed = ({
   const [nextId, setNextId] = useState(3);
 
   const handleAddCard = () => {
-    setCards([...cards, { id: nextId, content: "", days: "", payout: "" }]);
+     if (cards.length >= 6) {
+       alert("You can't add more than 6 cards.");
+       return;
+     }
+     const newCard={ id: nextId, content: "", days: "", payout: "" }
+    setCards([...cards, newCard ]);
     setNextId(nextId + 1);
   };
 
@@ -30,12 +35,43 @@ const Fixed = ({
     setCards(updatedCards);
   };
 
+  // const handleInputChange = (id, field, value) => {
+  //   const updatedCards = cards.map((card) =>
+  //     card.id === id ? { ...card, [field]: value } : card
+  //   );
+  //   setCards(updatedCards);
+  // };
+
   const handleInputChange = (id, field, value) => {
     const updatedCards = cards.map((card) =>
       card.id === id ? { ...card, [field]: value } : card
     );
+
     setCards(updatedCards);
+
+    // Extract milestone data from the cards and update formData
+    const milestoneData = updatedCards.map((card) => ({
+      milestone_deliver: card.content,
+      milestone_payout: card.payout,
+      milestone_Days: card.days,
+    }));
+
+    setFormData((prevData) => ({
+      ...prevData,
+      milestone: {
+        milestone_deliver: milestoneData.map(
+          (milestone) => milestone.milestone_deliver
+        ),
+        milestone_payout: milestoneData.map(
+          (milestone) => milestone.milestone_payout
+        ),
+        milestone_Days:milestoneData.map(
+          (milestone) => milestone.milestone_Days
+        ),
+      },
+    }));
   };
+
   return (
     <Paper
       elevation={3}
@@ -53,10 +89,11 @@ const Fixed = ({
           <select
             className="form-control"
             style={{ width: "20%" }}
-            name="campaign_social_media_id"
-            value={formData.campaign_social_media_id}
+            name="max_payout_from"
+            value={formData.max_payout_from}
             onChange={handleChangess}
           >
+            <option value="">Select Payout type</option>
             <option value="1">INR</option>
             <option value="2">USD</option>
           </select>
@@ -64,10 +101,10 @@ const Fixed = ({
             <input
               className="form-control"
               type="number"
-              id="numberinfluencer"
+              id="max_payout"
               placeholder="Type number of influencers required"
-              name="InfluencerRequired"
-              value={formData.InfluencerRequired}
+              name="max_payout"
+              value={formData.max_payout}
               onChange={handleChangess}
             />
           </Stack>
@@ -138,7 +175,7 @@ const Fixed = ({
                     placeholder="Days in deliver"
                     name="promotionGoals"
                     onChange={(e) =>
-                      handleInputChange(card.id, "days", e.target.value)
+                      handleInputChange(card.id, "payout", e.target.value)
                     }
                   />
                 </Stack>

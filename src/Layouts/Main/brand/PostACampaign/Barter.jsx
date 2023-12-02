@@ -30,13 +30,38 @@ const Barter = ({
     setCards(updatedCards);
   };
 
-  const handleInputChange = (id, field, value) => {
-    const updatedCards = cards.map((card) =>
-      card.id === id ? { ...card, [field]: value } : card
-    );
+  // const handleInputChange = (id, field, value) => {
+  //   const updatedCards = cards.map((card) =>
+  //     card.id === id ? { ...card, [field]: value } : card
+  //   );
 
-    setCards(updatedCards);
-  };
+  //   setCards(updatedCards);
+  // };
+const handleInputChange = (id, field, value) => {
+  const updatedCards = cards.map((card) =>
+    card.id === id ? { ...card, [field]: value } : card
+  );
+
+  setCards(updatedCards);
+
+  // Extract milestone data from the cards and update formData
+  const milestoneData = updatedCards.map((card) => ({
+    milestone_deliver: card.content,
+    milestone_payout: card.days,
+  }));
+
+  setFormData((prevData) => ({
+    ...prevData,
+    milestone: {
+      milestone_deliver: milestoneData.map(
+        (milestone) => milestone.milestone_deliver
+      ),
+      milestone_payout: milestoneData.map(
+        (milestone) => milestone.milestone_payout
+      ),
+    },
+  }));
+};
 
   return (
     <Paper
@@ -91,6 +116,9 @@ const Barter = ({
               onChange={handleChangess}
             />
           </Stack>
+          <div className="alert-error" style={{ color: "red" }}>
+            {formErrors.payout_influencer}
+          </div>
         </Stack>
         <Stack
           sx={{

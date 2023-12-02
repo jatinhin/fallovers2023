@@ -8,7 +8,6 @@ import { Logo2 } from "../../../../Constants/Images";
 import Faq from "react-faq-component";
 import axios from "axios";
 import { useEffect } from "react";
-
 const Castingdetail = () => {
   const [CastingDetails, setCastingDetails] = useState(null);
   const navigate = useNavigate();
@@ -93,7 +92,9 @@ const Castingdetail = () => {
             }}
           >
             <ArrowBackIosRoundedIcon />
-            <Stack alignItems={"center "}>Go back</Stack>
+            <Link to={"/casting-call"}>
+              <Stack alignItems={"center "}>Go back</Stack>
+            </Link>
           </WhiteBtn>
         </Box>
         {CastingDetails && (
@@ -163,11 +164,17 @@ const Castingdetail = () => {
                   </Stack>
                   <WhiteBtn
                     onClick={() => {
-                      navigate(
-                        `/casting-call/${
-                          location.pathname.split("casting-call/")[1]
-                        }/chat`
-                      );
+                      // navigate(
+                      //   `/casting-call/${
+                      //     location.pathname.split("casting-call/")[1]
+                      //   }/chat`
+                      // );
+                      const castingId =
+                        location.pathname.split("casting-call/")[1];
+
+                      // Navigate to the chat page with the casting ID as a parameter
+                      navigate(`/casting-call/chat?brand-id=${castingId}`);
+
                     }}
                     sx={{
                       width: "236px",
@@ -180,7 +187,7 @@ const Castingdetail = () => {
                       fontWeight: "bold",
                     }}
                   >
-                    I’d like To Submit a Pitch
+                    I'd like To Submit a Pitch
                   </WhiteBtn>
                 </Stack>
               </Box>

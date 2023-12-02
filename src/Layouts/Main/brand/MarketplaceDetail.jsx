@@ -9,7 +9,8 @@ import * as AiIcons from "react-icons/ai";
 import * as MdIcons from "react-icons/md";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   LogoName,
   footer1,
@@ -26,13 +27,15 @@ import {
   Team,
 } from "../../../Constants/Images";
 import Header from "../include/Header";
-import { Link, useLocation} from "react-router-dom";
 import { GET_CREATE_DETAIL } from "../../../actions/authenticationAction";
 import axios from "axios";
 import Gallery from "./Gallery";
-
-
-
+import WhiteBtn from "./utils/WhiteBtn";
+import { Box, Stack, Typography } from "@mui/material";
+import dp from "../assets/dp.png";
+import influencer1 from "../assets/influencer1.png";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import {storeDemoData} from "../../../actions/authenticationAction"
 const data = {
   //title: "FAQ (How it works)",
   rows: [
@@ -79,7 +82,8 @@ const config = {
 };
 
 function MarketplaceDetail(props) {
- 
+  const navigate = useNavigate();
+ const dispatch = useDispatch();
   const [details, setDetails] = useState([]);
   const [tradingVideo, setTradingVideo] = useState([]);
     const MarketplaceDetail= async(user_id)=> {
@@ -98,6 +102,7 @@ function MarketplaceDetail(props) {
         );
         setDetails(response.data.details);
         setTradingVideo(response.data.tradingVideo);
+        storeDemoData(dispatch,"Jatin")
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -178,7 +183,7 @@ console.log("details", details)
 
                       <div className="row">
                         <div className="col-md-12 heading">
-                          <h2 className="h2-margin">Deals</h2>
+                          <h2 style={{ color: "#4e76c9", fontSize:"18px" }}>Deals</h2>
                           <p>
                             The scecific deliverables available from this
                             Seller. Choose ene
@@ -231,7 +236,9 @@ console.log("details", details)
 
                       <div className="row">
                         <div className="col-md-12 heading">
-                          <h2 className="h2-margin">Information Requests</h2>
+                          <h2 className="influencer-list-left smilar-listing">
+                            Information Requests
+                          </h2>
                           <p>
                             Additional questions from the Buyer so they can
                             determine if you're the right fit.
@@ -239,7 +246,7 @@ console.log("details", details)
                         </div>
 
                         <div className="col-md-12 faq">
-                          <div className="info-request">
+                          <div>
                             <Faq data={data} styles={styles} config={config} />
                           </div>
                         </div>
@@ -257,7 +264,26 @@ console.log("details", details)
                               questions?
                             </p>
                             <div className="col-md-6">
-                              <button className="btn-1">Massage Me</button>
+                              <WhiteBtn
+                                onClick={() => {
+                                  // navigate(
+                                  //   `/casting-call/${
+                                  //     location.pathname.split("casting-call/")[1]
+                                  //   }/chat`
+                                  // );
+                                  const castingId =
+                                    location.pathname.split(
+                                      "brand/marketplace/"
+                                    )[1];
+
+                                  // Navigate to the chat page with the casting ID as a parameter
+                                  navigate(
+                                    `/brand/marketplace/chat?influencer-id=${castingId}`
+                                  );
+                                }}
+                              >
+                                <button className="btn-1">Message Me</button>
+                              </WhiteBtn>
                             </div>
                             <div className="col-md-6">
                               <Link to="/influencer-profile/1">
@@ -406,7 +432,7 @@ console.log("details", details)
                           slidesToSlide={1}
                           swipeable
                         >
-                          {tradingVideo.map((data) => {
+                          {/* {tradingVideo.map((data) => {
                             return (
                               <Link to={`/market-place-detail/${data.user_id}`}>
                                 <div
@@ -443,6 +469,82 @@ console.log("details", details)
                                   </div>
                                 </div>
                               </Link>
+                            );
+                          })} */}
+                          {tradingVideo.map((key, index) => {
+                            return (
+                              <Stack
+                                key={index}
+                                sx={{
+                                  backgroundImage: `url(${influencer1})`,
+                                  backgroundSize: "cover",
+                                }}
+                                border={"1px solid grey"}
+                                width={"230px"}
+                                height={"300px"}
+                                borderRadius={"15px"}
+                                // onClick={() => {
+                                //   handlecardClicks(val.user_id);
+                                // }}
+                                justifyContent={"space-between"}
+                              >
+                                <Stack direction={"row"} gap={2} p={2}>
+                                  <Box
+                                    bgcolor={"grey"}
+                                    borderRadius={"16px"}
+                                    width={"42px"}
+                                    height={"42px"}
+                                  >
+                                    <img
+                                      src={dp}
+                                      alt=""
+                                      style={{ borderRadius: "50%" }}
+                                    />
+                                  </Box>
+                                  <Stack>
+                                    <Typography
+                                      color={"white"}
+                                      variant="h6"
+                                      pl={0.4}
+                                    >
+                                      {key.user_name}
+                                    </Typography>
+                                    <Stack
+                                      bgcolor={"#FD1357"}
+                                      borderRadius={"19px"}
+                                      direction={"row"}
+                                      p={0.5}
+                                      gap={1}
+                                    >
+                                      <InstagramIcon sx={{ color: "white" }} />
+                                      <Typography color={"white"}>
+                                        20K followers
+                                      </Typography>
+                                    </Stack>
+                                  </Stack>
+                                </Stack>
+                                <Stack
+                                  width={"100%"}
+                                  height={"23px"}
+                                  bgcolor={"#FD1357"}
+                                  alignItems={"center"}
+                                  mb={5}
+                                >
+                                  <Stack
+                                    width={"80%"}
+                                    direction={"row"}
+                                    justifyContent={"space-between"}
+                                    p={0.5}
+                                  >
+                                    <Typography color={"white"}>
+                                      {key.media_name}
+                                    </Typography>
+                                    <Typography color={"white"}>
+                                      ${key.info_reg_deal_fallowers}
+                                    </Typography>
+                                  </Stack>
+                                </Stack>
+                              </Stack>
                             );
                           })}
                         </Carousel>

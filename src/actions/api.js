@@ -23,5 +23,7 @@ export const getcreateListing = `${baseUrl}/get-create-listing`
 export const getmarketPlaceCards = `${baseUrl}/get-market-place`;
 export const getCastingCalls = `${baseUrl}/get-casting-calls`;
 export const getMarketplaceDetails = `${baseUrl}/get-create-detail`;
+export const getdashboardHome = `${baseUrl}/brand-dahsboard-overview`;
+
 // export const get=`${baseUrl}/`
 

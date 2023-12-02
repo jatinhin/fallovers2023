@@ -16,31 +16,49 @@ const Marketplace = () => {
   const [socialMediaData, setSocialMediaData] = useState([]);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [categories, setcategories] = useState()
+  const [categories, setcategories] = useState("")
+  const itemsPerPage = 20;
+  const [page, setPage] = useState(0);
+  const [pageCount, setPageCount] = useState(1);
+  const [total, setTotal] = useState();
 const navigate = useNavigate();
 const handlecardClicks = (user_id) => {
   navigate(`/brand/marketplace/${user_id}`);
 };
-   useEffect(() => {
-     async function fetchData() {
-       try {
-         const response = await GET_MARKET_CARDS(); // Use your action here
-         console.log("res", response);
-         setSocialMediaData(response.data.socialmedia);
-         setData(response.data.data);
-         setLoading(false);
-         setcategories(response.data.filterTags);
-       } catch (error) {
-         console.error("Error fetching data: ", error);
-       }
+const changePage = ({ selected }) => {
+  setPage(selected + 1);
+  fetchData(selected+1);
+  window.scrollTo(500, 500);
+};
+console.log("pageData", data);
+console.log("page", page);
+console.log("pageCount", pageCount);
+   const fetchData = async (PageNumber = null) => {
+     try {
+       const response = await GET_MARKET_CARDS(PageNumber || page); // Use your action here
+       console.log("res", response);
+       setSocialMediaData(response.data.socialmedia);
+       setData(response.data.data);
+       setLoading(false);
+       setTotal(response.data.total);
+       setcategories(response.data.filterTags);
+     } catch (error) {
+       console.error("Error fetching data: ", error);
      }
+   };
 
-     fetchData();
-   }, []);
+     
+useEffect(() => {
+  const pagedatacount = Math.ceil(total / itemsPerPage);
+  setPageCount(pagedatacount);
+}, [total]);
 
-
+useEffect(() => {
+  // Only call getdata when the page or category changes
+  fetchData();
+}, []);
   return (
-    <>
+    <div className="background">
       <Header />
 
       <Stack pt={2} alignItems={"center"} justifyContent={"center"}>
@@ -80,37 +98,18 @@ const handlecardClicks = (user_id) => {
               ) : (
                 <MarketplaceCards
                   data={data}
+                  loading={loading}
+                  pageCount={pageCount}
+                  changePage={changePage}
                   handlecardClicks={handlecardClicks}
                 />
               )}
             </Stack>
-            <Stack direction={"row"} gap={2} justifyContent={"center"} pb={5}>
-              <Stack
-                justifyContent={"center"}
-                alignItems={"center"}
-                width={"60px"}
-                height={"60px"}
-                color={"#603AFA"}
-                sx={{ border: "2px solid #603AFA", borderRadius: "15px" }}
-              >
-                <ArrowBackIosRoundedIcon />
-              </Stack>
-              <Stack
-                justifyContent={"center"}
-                alignItems={"center"}
-                width={"60px"}
-                height={"60px"}
-                color={"#603AFA"}
-                sx={{ border: "2px solid #603AFA", borderRadius: "15px" }}
-              >
-                <ArrowForwardIosRoundedIcon />
-              </Stack>
-            </Stack>
           </Stack>
+          <Footer />
         </Stack>
       </Stack>
-      <Footer />
-    </>
+    </div>
   );
 };
 

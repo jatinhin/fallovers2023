@@ -7,6 +7,7 @@ import {
   getcastingCalls,
   getcreateDetail,
   getcreateListing,
+  getdashboardHome,
   getfilterListing,
   getmarketPlace,
   getmarketPlaceCards,
@@ -16,8 +17,8 @@ import {
 } from "./api";
 import { ERROR, SUCCESS } from "../Helpers";
 // import { Navigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-import { USER_AUTHENTICATED_LOGIN } from "../redux/reducersKeys";
+//import { useDispatch } from "react-redux";
+import { USER_AUTHENTICATED_LOGIN, DUMMY_DATA } from "../redux/reducersKeys";
 //import { logUser } from "../actions/index";
 
 export const GET_CATEGORY = () => {
@@ -26,6 +27,15 @@ export const GET_CATEGORY = () => {
 
 export const GET_HOMEPAGE_DATA = () => {
   return axios.post(homepageData);
+};
+
+export const storeDemoData = (param) => { console.log('bbbsss')
+  return (dispatch) =>{
+      dispatch({
+        type: DUMMY_DATA,
+        payload: "dsfsdfsd",
+      });
+  }
 };
 
 export const GET_CREATE_LISTING = (data) => {
@@ -99,8 +109,10 @@ export const LOGIN = (data, setIsloading, dispatch, navigate) => {
   });
 };
 /////////////////////////////////////////////////
-export const GET_MARKET_CARDS = () => {
-  return axios.post(getmarketPlaceCards);
+export const GET_MARKET_CARDS = (page) => {
+  return axios.post(getmarketPlaceCards,{
+    page: page,
+  });
 };
 export const GET_CASTING_CARDS = async (page) => {
   return axios.post(getCastingCalls,{
@@ -111,3 +123,6 @@ export const GET_CASTING_CARDS = async (page) => {
 export const GET_MARKETPLACE_DETAILS = () => {
   return axios.post(getMarketplaceDetails);
 };
+export const GET_DASHBOARD_HOME=()=>{
+  return axios.post(getdashboardHome);
+}

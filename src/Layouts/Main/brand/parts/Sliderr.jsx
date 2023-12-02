@@ -2,6 +2,8 @@ import { Box, Stack, Typography} from "@mui/material";
 import Slider from "react-slick";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import { useState } from "react";
+import tagspic from "../../assets/tagspic.png";
+import WhiteBtn from "../utils/WhiteBtn";
 
 // Modify your functional component to accept the socialMediaData prop
 const MultipleItems = ({ socialMediaData }) => {
@@ -58,57 +60,35 @@ const handleHover = (index) => {
             }}
             px={{ xs: 1, md: 2 }}
           >
-            <Box
+            <Stack
+            justifyContent={"end"}
               sx={{
+                backgroundImage: `url(${tagspic})`,
+                backgroundSize: "cover",
                 minWidth: "300px",
                 height: "270px",
                 borderRadius: "20px",
                 zIndex: "0",
-                border: "1px solid red",
-                "&:hover": {
-                  border: "1px solid #ffcd00",
-                },
+                
               }}
             >
-              <Box
-                sx={{
-                  position: "relative",
-                  width: "100%",
-                  height: "200px",
-                }}
-                onMouseEnter={() => handleHover(index)}
-                onMouseLeave={() => handleHover(-1)}
-              >
-                {/* Your image and hover logic here */}
-
-                <Stack p={4}>
-                  <Box display="flex" flexDirection="column" rowGap="19px">
-                    <Box display={"flex"} flexDirection={"column"} gap={"20px"}>
-                      <Box display={"flex"} flexDirection={"row"} gap={"5px"}>
+              
+                <Stack p={"32px 32px 16px 32px"} position={"absolute"}>
+                    <Stack direction={"row"} width={"340px"} justifyContent={"space-between"}>
+                      <Stack>
+                        <Typography color={"white"} fontSize={"13px"}>Collection</Typography>
                         <Typography
                           fontSize={"15px"}
                           fontWeight={"bold"}
-                          color={"black"}
+                          color={"white"}
                         >
                           {val.media_name}
                         </Typography>
-                      </Box>
-                      <Typography fontWeight="bold" fontSize={"18px"}>
-                        {val.Title}
-                      </Typography>
-                      <Typography
-                        fontSize={"14.5px"}
-                        color={"grey"}
-                        // lineHeight={1.5}
-                        letterSpacing={"0.3px"}
-                      >
-                        {val.des}
-                      </Typography>
-                    </Box>
-                  </Box>
+                      </Stack>
+                      <WhiteBtn sx={{width:"88px", borderRadius:"10px"}}>View All</WhiteBtn>
+                    </Stack>
                 </Stack>
-              </Box>
-            </Box>
+            </Stack>
           </Box>
         ))}
       </Slider>

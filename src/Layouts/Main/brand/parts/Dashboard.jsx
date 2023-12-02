@@ -18,7 +18,8 @@ import Reacttable from "./Reacttable";
 import TransactionPage from "./TransactionPage";
 import ReactTable2 from "./ReactTable2";
 import { useStore } from "react-redux";
-
+import axios from "axios";
+ 
 const Dashboard = () => {
   const [activebtn, setActivebtn] = useState(1);
   const handleBtnClick = (btnNumber) => {
@@ -42,7 +43,7 @@ const Dashboard = () => {
   const handlecardClick = () => {
     navigate("/FindCreator");
   };
-
+  
   
 
   const data1 = [

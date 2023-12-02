@@ -60,7 +60,25 @@ function Header(props) {
 
   // console.log(props, "parmm");
   // console.log(loginuser.userData, "loginuser");
+// const [brandOverview, setbrandOverview] = useState({});
+// const fetchbrandOverview = async () => {
+//   try {
+//     const response = await axios.post(
+//       "https://fallovers.com/fallovers-api/api/v1/brand-dahsboard-overview",
 
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+//     console.log("response", response);
+//     setbrandOverview(response.data);
+//     console.log("ashmdjn", brandOverview);
+//   } catch (error) {
+//     console.error("Error fetching data: ", error);
+//   }
+// };
   useEffect(() => {
     GET_SEARCH_DATA().then((res) => {
       const { data } = res;
@@ -488,11 +506,11 @@ function Header(props) {
                         data-out="#"
                       >
                         <li className="menu-register-btn menu-register-btn-after-login dropdown-toggle menu-neviget btn btn-success">
-                          <Link to="/">Chat</Link>
+                          <Link to="/casting-call/chat">Chat</Link>
                         </li>
 
                         <li className="menu-register-btn menu-register-btn-after-login dropdown-toggle menu-neviget btn btn-success">
-                          <Link to="/dashboard">Collabs</Link>
+                          <Link to="/dashboard?source=collabs">Collabs</Link>
                         </li>
 
                         <li className="menu-register-btn menu-register-btn-after-login dropdown-toggle menu-neviget btn btn-success">
@@ -651,7 +669,7 @@ function Header(props) {
                       fontWeight: "bold",
                     }}
                   >
-                    Create Account
+                    {userType === 2 ? "Login" : "Create Account"}
                   </WhiteBtn>
                 </Stack>
                 {/* <button type="submit">Submit</button> */}

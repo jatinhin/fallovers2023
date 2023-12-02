@@ -18,18 +18,19 @@ import Piches from "./dashboard/Pitches/Piches";
 import Transactions from "./dashboard/Transactions/Transactions";
 import Social from "./dashboard/Social";
 import $ from "jquery";
+import axios from "axios";
 
-function Dashboard(props) {
-  const {
+function Dashboard() {
+  const { 
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    // setisLoading(true);
-    GET_HOMEPAGE_DATA().then((res) => {
-      //const { data } = res;
-    });
-  }, []);
+  // useEffect(() => {
+  //   // setisLoading(true);
+  //   GET_HOMEPAGE_DATA().then((res) => {
+  //     //const { data } = res;
+  //   });
+  // }, []);
 
   const [dropdown, setDropdown] = useState(false);
   const [selectedTab, setselectedTab] = useState(0);
@@ -173,7 +174,7 @@ function Dashboard(props) {
                       </TabList>
                       <div className="col-md-12">
                         <TabPanel>
-                          <Home />
+                          <Home  />
                         </TabPanel>
 
                         <TabPanel>

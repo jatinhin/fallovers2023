@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Box, CircularProgress, Pagination, PaginationItem, Stack, Typography } from "@mui/material";
+import { Box,  Stack, Typography } from "@mui/material";
 import img1 from "../assets/img1.png";
 import Variants from "../brand/parts/Shimmer";
 import ReactPaginate from "react-paginate";
+import dp from "../assets/dp.png"
 const NewCastingCalls = ({
   loading,
-  pageData,
+  CardsData = [],
   pageCount,
   changePage,
   handlecardClicks,
@@ -15,24 +16,26 @@ const NewCastingCalls = ({
       <Stack>
         <Stack
           direction={"row"}
-          gap={5}
+          gap={"17px"}
           flexWrap={"wrap"}
           sx={{ cursor: "pointer" }}
           justifyContent={"center"}
         >
           {loading // Display shimmer loading cards while loading is true
             ? [1, 2, 3, 4].map((index) => <Variants key={index} />)
-            : pageData.map((call, index) => (
+            : CardsData.map((call, index) => (
                 <Stack
                   key={index}
                   gap={2}
                   mt={2}
                   bgcolor={"white"}
-                  width={"235px"}
+                  width={"220px"}
                   borderRadius={"15px"}
                   border={"1px solid lightgrey"}
                   position="relative"
-                  onClick={()=>{handlecardClicks(call.id)}}
+                  onClick={() => {
+                    handlecardClicks(call.id);
+                  }}
                 >
                   <Stack
                     direction={"row"}
@@ -50,12 +53,12 @@ const NewCastingCalls = ({
                       sx={{ borderRadius: "50%" }}
                     >
                       <img
+                        src={dp}
                         alt=""
                         style={{
                           width: "32px",
                           height: "30px",
                           borderRadius: "50%",
-                          border: "1px solid grey",
                         }}
                       />
                     </Box>
@@ -63,14 +66,14 @@ const NewCastingCalls = ({
                       <Typography fontWeight={"bold"} color={"black"}>
                         {call.campaign_name}
                       </Typography>
-                      <Typography>{call.campaign_taggline}</Typography>
+                      <Typography color={"#603AFA"}>Work for Hire</Typography>
                     </Stack>
                   </Stack>
                   <Box position={"relative"}>
                     <img
                       src={img1}
                       alt=""
-                      style={{ width: "235px", height: "172px" }}
+                      style={{ width: "250px", height: "172px" }}
                     />
 
                     <Box
@@ -99,7 +102,7 @@ const NewCastingCalls = ({
                       Custom Text
                     </Typography>
                   </Box>
-                  <Stack direction={"row"} gap={8} pl={2}>
+                  <Stack direction={"row"} gap={5} pl={2}>
                     <Box>
                       <svg
                         width="84"

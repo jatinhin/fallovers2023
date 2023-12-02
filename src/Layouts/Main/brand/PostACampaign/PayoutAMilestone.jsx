@@ -7,7 +7,6 @@ const PayoutAMilestone = ({
   selectedOption,
   formErrors,
   formData,
-  barterError,
   handleRadioChange,
   setFormErrors,
   setFormData,
@@ -89,7 +88,6 @@ const PayoutAMilestone = ({
           />
         )}
       </Stack>
-      {barterError && <div style={{ color: "red" }}>{barterError}</div>}
     </Stack>
   );
 };

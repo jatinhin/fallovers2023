@@ -3,6 +3,7 @@ import {
   BASE_URL,
   getCastingCalls,
   getCreatearProfile,
+  getInfluencerDashboard,
   getMarketplaceDetails,
   getcastingCalls,
   getcreateDetail,
@@ -126,3 +127,7 @@ export const GET_MARKETPLACE_DETAILS = () => {
 export const GET_DASHBOARD_HOME=()=>{
   return axios.post(getdashboardHome);
 }
+export const GET_INFLUNCER_DASHBOARD = () => {
+  return axios.post(getInfluencerDashboard);
+};
+;

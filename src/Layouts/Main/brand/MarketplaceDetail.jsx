@@ -432,45 +432,7 @@ console.log("details", details)
                           slidesToSlide={1}
                           swipeable
                         >
-                          {/* {tradingVideo.map((data) => {
-                            return (
-                              <Link to={`/market-place-detail/${data.user_id}`}>
-                                <div
-                                  className="popular-courses-items popular-courses-carousel owl-carousel owl-theme trading-video"
-                                  style={{ margin: "auto", width: "95%" }}
-                                >
-                                  <div className="item">
-                                    <div className="info">
-                                      <div className="author-info">
-                                        <div className="thumb">
-                                          <a href="#">
-                                            <img src={Team} alt="Thumb" />
-                                          </a>
-                                        </div>
-                                        <div className="others">
-                                          <a href="#">{data.user_name}</a>
-                                          <div className="rating">
-                                            <img src={instagram} />
-                                            <span>
-                                              {" "}
-                                              {data.campaign_fallovers}{" "}
-                                              Fallovers
-                                            </span>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div className="product-img" />
-                                      <div className="clear" />
-                                      <div className="prodct-detail">
-                                        Sponsored {data.media_name} post <br />{" "}
-                                        from @ {data.user_name}
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </Link>
-                            );
-                          })} */}
+                          
                           {tradingVideo.map((key, index) => {
                             return (
                               <Stack

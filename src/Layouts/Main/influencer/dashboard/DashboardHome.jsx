@@ -16,7 +16,8 @@ import img1 from "../../assets/img1.png";
 import dp from "../../assets/dp.png";
 import influencer1 from "../../assets/influencer1.png";
 import InstagramIcon from "@mui/icons-material/Instagram";
-
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import { Team, card1, card2, card3 } from "../../../../Constants/Images";
 import { useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -79,7 +80,7 @@ function Home(props) {
   useEffect(() => {
     const source = new URLSearchParams(location.search).get("source");
 
-    if (source === "collabs") {
+    if (source === "collabs" && userType===0) {
       // Perform your API call for dashboard data
       GET_DASHBOARD_HOME().then((res) => {
         // Handle the API response data
@@ -795,7 +796,7 @@ function Home(props) {
             </Stack>
               )
             })} */}
-            {/* {brandOverview.market_place?.map((key, index) => {
+          {/* {brandOverview.market_place?.map((key, index) => {
               return (
                 <Stack
                   key={index}
@@ -860,7 +861,7 @@ function Home(props) {
               );
             })} */}
           </div>
-
+          
           <div className="col-md-12 link-btn-right">
             <Link to="/brand/marketplace" onClick={scrolltoTop}>
               View all

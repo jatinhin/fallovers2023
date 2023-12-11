@@ -22,7 +22,7 @@ const NewCastingCalls = ({
           justifyContent={"center"}
         >
           {loading // Display shimmer loading cards while loading is true
-            ? [1, 2, 3, 4].map((index) => <Variants key={index} />)
+            ? Array.from({ length: 20 }, (_, index) => <Variants key={index} />)
             : CardsData.map((call, index) => (
                 <Stack
                   key={index}

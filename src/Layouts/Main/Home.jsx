@@ -26,8 +26,10 @@ import {
 import { useRef } from "react";
 import Footer from "./include/Footer";
 import Networks from "./common/Networks";
+import axios from "axios";
 
 function Home(props) {
+  const [Image, setImage] = useState([])
   const {
     formState: { errors },
   } = useForm();
@@ -38,6 +40,26 @@ function Home(props) {
   const videoRef = useRef();
   const [stop, setStop] = useState(false);
 
+//  const NewPage = async () => {
+//    try {
+//      const response = await axios.get(
+//        "https://seopods.com/php-api/Pods%20Details/read",
+//        {
+//        },
+
+//        {
+//          headers: {
+//            "Content-Type": "application/json",
+//          },
+//        }
+//      );
+//      setImage(response.data.data)
+//      console.log("response", response);
+//      console.log("ahsdhkkasj", Image)
+//    } catch (error) {
+//      console.error("Error fetching data: ", error);
+//    }
+//  };
 
   useEffect(() => {
 
@@ -50,8 +72,14 @@ function Home(props) {
         setsocialMedia(data.socialmedia);
       }
     });
+    // NewPage();
   }, []);
 
+// const imagess = Image.map((image) => ({
+//   src: `https://seopods.com${image.image}`,
+// }));
+// console.log("images", Image);
+// console.log("imagess", imagess);
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -113,10 +141,9 @@ function Home(props) {
 
   return (
     <>
-
       <ParallaxProvider>
         <div className="background">
-          <Header headerbg={1}/>
+          <Header headerbg={1} />
 
           <div className="about-area default-padding home-top-bg">
             <div className="container">
@@ -200,7 +227,18 @@ function Home(props) {
               </Parallax>
             </div>
           </div>
-
+          {/* <h1>dsfghjkl</h1>
+          {imagess.map((img, i) => (
+            <>
+            <img
+            src={img.src}
+            alt=""
+            key={i}
+            style={{ width: "100%", display: "block", cursor: "pointer" }}
+            />
+            {console.log("things",imagess)}
+            </>
+            ))} */}
           {/* End About */}
           <div className="seles home-top-bg seles-info">
             <div className="container">
@@ -319,7 +357,7 @@ function Home(props) {
                           style={{ margin: "auto", width: "95%" }}
                         >
                           <div className="item">
-                            <div className="info" onClick={()=>handleVideo()}>
+                            <div className="info" onClick={() => handleVideo()}>
                               <div className="author-info author-info-video">
                                 <div className="thumb">
                                   <a href="#">
@@ -327,7 +365,12 @@ function Home(props) {
                                   </a>
                                 </div>
                                 <div className="others">
-                                  <a className="author-info-video-name" href="#">{data.deal_network_profile}</a>
+                                  <a
+                                    className="author-info-video-name"
+                                    href="#"
+                                  >
+                                    {data.deal_network_profile}
+                                  </a>
                                   <div className="rating author-info-video-netowrk">
                                     <img src={instagram} />
                                     <span>

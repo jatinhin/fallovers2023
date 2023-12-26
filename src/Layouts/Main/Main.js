@@ -271,7 +271,7 @@ function MainCompomentRouter() {
       <Route path="/shimmer" element={<SliderShimmer />} />
       {/* <Route path="/chat" element={<Faltu />} /> */}
       <Route path="/brand/postacampaign" element={<PostACampaign />} />
-      <Route exact path="/casting-call" element={<CastingCall />}></Route>
+    <Route exact path="/casting-call" element={<CastingCall />}></Route>
       <Route exact path="/casting-call/:id" element={<Castingdetail />}></Route>
       <Route exact path="/casting-call/:id/chat" element={<Faltu />}></Route>
       <Route exact path="/casting-call/chat" element={<Faltu />}></Route>
